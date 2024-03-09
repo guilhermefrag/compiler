@@ -1,3 +1,4 @@
+//GRUPO: GUILHERME FRAGNANI, ADAIR LOCKS, WESLEY
 //Dicionario gramatica compiladores
 //O programa iniciar desta maneira, exemplo da estrutura:
 /*void main{
