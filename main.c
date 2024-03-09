@@ -25,14 +25,10 @@ para números reais (1.2, 3.4, 5.7).*/
 //declaração de variavel
 //Primeiro é declado o nome da variavel e depois o tipo, separados por dois pontos e finalizando com ponto e virgula, exemplo:
 // <nome da variavel> : <tipo>
+
 nomevariavel : float;
 nomevariavel2, nomevariavel3 : char;
 nomevariavel4 : integer; nomevariavel5 : string;
-
-//declaração de constantes
-//São iguais as variavel, porém usado a palavra reservada const atras da declaração
-// const <nome da variavel> : <tipo>
-const nomevariavel : char
 
 //operações aritmeticas
 /*
@@ -43,41 +39,77 @@ Divisão: /
 Exemplo:
 */
 
-write(1 + 2) //adição
-write(1 - 2) //subtração
-write(1 * 2) //multiplicação
-write(1 / 2) //divisão
+1 + 2 //adição
+1 - 2 //subtração
+1 * 2 //multiplicação
+1 / 2 //divisão
 
 /*
-Declaravariaveis
 Operadores de comparação e atribuição
 Operadores de comparação comparam termos. Os operadores de comparação
 são:
-Igual: =.
-Diferente: <>.
+Igual: ==.
+Diferente: !=.
 Maior que: >.
 Menor que: <.
 Maior ou igual que: >=.
 Menor ou igual que: <=.
 Exemplos:
-a = b
-Verdadeiro (TRUE) se a é igual a b.
-a <> b
-Verdadeiro se a não é igual a b.
-a > b
-Verdadeiro se a é maior que b.
-a < b
-Verdadeiro se a é menor que b.
-a >= b
-Verdadeiro se a é maior ou igual a b.
-a <= b
-Verdadeiro se a é menor ou igual a b.
-
+<nome da variavel> <operador> <nome da variavel>
 */
+a == b
+//Verdadeiro (TRUE) se a é igual a b.
+a != b
+//Verdadeiro se a não é igual a b.
+a > b
+//Verdadeiro se a é maior que b.
+a < b
+//Verdadeiro se a é menor que b.
+a >= b
+//Verdadeiro se a é maior ou igual a b.
+a <= b
+//Verdadeiro se a é menor ou igual a b.
 
+//Estruturas de controle
+//Estruturas de controle são usadas para controlar o fluxo de execução do programa.
+//As estruturas de controle são:
+// if/else
+// do/while
+// for
+//Exemplo if/else:
+//if (<nome da variavel> <operador> <nome da variavel>){
+//    <comando>
+//}else{
+//    <comando>
+//}
+
+if (a > b){
+    return a
+}
+else{
+    return b
+}
+
+//Exemplo do/while:
+//do{
+//    <comando>
+//}while(<nome da variavel> <operador> <nome da variavel>)
+do{
+    return a
+}while(a > b)
+
+//Exemplo for:
+//for (<nome da variavel> = <valor inicial>; <nome da variavel> <operador> <valor final>; <nome da variavel> = <nome da variavel){
+//    <comando>
+//}
+for (i = 0; i < 10; i = i + 1){
+    return i
+}
 //declaração de função
 /*
-<tipo de retorno> <nome da função> (<nome da variavel> : <tipo>)
+<tipo de retorno> <nome da função> (<nome da variavel> : <tipo>){
+    <comando>
+}
 */
 float soma(float a; float b){
         return a + b;
