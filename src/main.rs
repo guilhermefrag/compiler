@@ -1,29 +1,17 @@
-mod my_module;
+mod analisers;
+mod enums;
 
-use my_module::my_function;
+use std::fs;
+use analisers::lexer_analyzer;
 
 fn main() {
-    my_function();
-    let values_array = vec![1, 2, 3, 4, 5, 6, 7, 8, 9];
-    let target = 5;
-    let result = binary_search_three(values_array, target);
-    println!("The result is: {}", result);
-}
-
-pub fn binary_search_three(values_array: Vec<i32>, target: i32) -> i32 {
-    let mut left = 0;
-    let mut right = values_array.len() as i32 - 1;
-    while left <= right {
-        let mid = left + (right - left) / 2;
-        if values_array[mid as usize] == target {
-            return mid;
+    match fs::read_to_string(r#"src\main.comp"#) {
+        Ok(content) => {
+            let tokens = lexer_analyzer(&content);
+            print!("{:?}", tokens)
         }
-        if values_array[mid as usize] < target {
-            left = mid + 1;
-        } else {
-            right = mid - 1;
+        Err(err) => {
+            eprintln!("Error reading the file: {}", err);
         }
     }
-    -1
-
 }
