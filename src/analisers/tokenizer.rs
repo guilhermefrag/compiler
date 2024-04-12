@@ -52,6 +52,10 @@ pub fn codify_token(token: &Token) -> Option<i32>{
         "!=" => Some(46),
         "--" => Some(47),
         "-" => Some(48),
-        _ => None,
+        " " => None,
+        "\r" => None,
+        "\n" => None,
+        "\t" => None,
+        _ => Some(9),
     }
 }

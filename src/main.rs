@@ -11,7 +11,7 @@ fn main() {
         Ok(content) => {
             let tokens = lexer_analyzer(&content);
             for token in &tokens {
-            println!("{:?}",codify_token(token));
+                println!("{:?}",codify_token(token));
             }
         }
         Err(err) => {

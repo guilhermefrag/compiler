@@ -19,17 +19,17 @@ pub fn lexer_analyzer(code: &str) -> Vec<Token> {
             '*' => tokens.push(Token::Operator(c.to_string())),
             '/' => tokens.push(Token::Operator(c.to_string())),
             '>' => {
-                if let Some('&') = chars.peek() {
+                if let Some('>') = chars.peek() {
                     chars.next(); // Consume the next character
-                    tokens.push(Token::Operator("&&".to_string()));
+                    tokens.push(Token::Operator(">>".to_string()));
                 } else {
                     tokens.push(Token::Operator(c.to_string()));
                 }
             }
             '<' => {
-                if let Some('&') = chars.peek() {
+                if let Some('<') = chars.peek() {
                     chars.next(); // Consume the next character
-                    tokens.push(Token::Operator("&&".to_string()));
+                    tokens.push(Token::Operator("<<".to_string()));
                 } else {
                     tokens.push(Token::Operator(c.to_string()));
                 }
@@ -99,7 +99,7 @@ pub fn lexer_analyzer(code: &str) -> Vec<Token> {
                     }
                     tokens.push(Token::Number(lexeme.parse().unwrap()));
                 } else {
-                    tokens.push(Token::Unknown(c.to_string()));
+                    tokens.push(Token::Variable(c.to_string()));
                 }
             }
         }

@@ -8,6 +8,7 @@ pub enum Token {
     Literal(String),
     Number(f64),
     Unknown(String),
+    Variable(String)
 }
 
 pub fn token_to_string(token: &Token) -> String {
@@ -20,5 +21,6 @@ pub fn token_to_string(token: &Token) -> String {
         Token::Literal(s) => s.to_string(),
         Token::Number(n) => n.to_string(),
         Token::Unknown(s) => s.to_string(),
+        Token::Variable(s ) => s.to_string()
     }
 }
