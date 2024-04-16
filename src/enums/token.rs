@@ -24,3 +24,16 @@ pub fn token_to_string(token: &Token) -> String {
         Token::Variable(s ) => s.to_string()
     }
 }
+ pub fn token_type_to_string(token: &Token) -> String {
+    match token {
+        Token::Keyword(_) => "Palavra chave".to_string(),
+        Token::Identifier(_) => "Identificador".to_string(),
+        Token::Operator(_) => "Operador".to_string(),
+        Token::Terminal(_) => "Terminal".to_string(),
+        Token::NonTerminal(_) => "Não terminal".to_string(),
+        Token::Literal(_) => "Literal".to_string(),
+        Token::Number(_) => "Número".to_string(),
+        Token::Unknown(_) => "Desconhecido".to_string(),
+        Token::Variable(_) => "Variável".to_string()
+    }
+}
