@@ -1,6 +1,16 @@
 void main{
     nomevariavel : float;
     nomevariavel2, nomevariavel3:char;
+    nomevariavel4: float;
+    nomevariavel5: int;
+    nomevariavel6: string;
 
+    nomevariavel = 10.0;
+    nomevariavel4 = 20.0;
+    nomevariavel2 = 'a';
+    nomevariavel3 = 'b';
+    nomevariavel5 = 10;
+    nomevariavel6 = 'teste';
+    
     nomevariavel1 + nomevariavel2;
 }

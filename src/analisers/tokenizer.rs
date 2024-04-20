@@ -56,6 +56,17 @@ pub fn codify_token(token: &Token) -> Option<i32>{
         "\r" => None,
         "\n" => None,
         "\t" => None,
-        _ => Some(9),
+        _ => {
+            if let Ok(int_value) = str_token.parse::<i32>() {
+                return Some(5);
+            }
+            if let Ok(float_value) = str_token.parse::<f64>() {
+                return Some(6);
+            }
+            if let Ok(char_value) = str_token.parse::<char>() {
+                return Some(8);
+            }
+            Some(9)
+        }
     }
 }
