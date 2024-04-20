@@ -1,0 +1,6 @@
+void main{
+    nomevariavel : float;
+    nomevariavel2, nomevariavel3:char;
+
+    nomevariavel1 + nomevariavel2;
+}

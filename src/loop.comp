@@ -1,0 +1,8 @@
+void main{
+    nomevariavel : float;
+    nomevariavel2, nomevariavel3:char;
+
+    while (true) {
+        nomevariavel = 2;
+    }
+}
