@@ -18,7 +18,7 @@ pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
                 line += 1;
                 continue;
             }
-            '{' | '}' | ';' | '(' | ')' | ',' | ':' | '+' | '-' | '*' | '/' | '>' | '<' | '=' | '!' | '"' => {
+            '{' | '}' | ';' | '(' | ')' | ',' | ':' | '+' | '-' | '*' | '/' | '>' | '<' | '=' | '!' | '\'' => {
                 tokens_and_line.push(TokenLexical {
                     token: match c {
                         '{' | '}' | '(' | ')' => Parenthesizer(c.to_string()),
@@ -40,16 +40,17 @@ pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
                                 Operator(c.to_string())
                             }
                         }
-                        '"' => {
+                        '\'' => {
                             let mut lexeme = String::new();
                             while let Some(&next_char) = chars.peek() {
-                                if next_char == '"' {
+                                if next_char == '\'' {
                                     chars.next(); // Consume the closing quote
                                     break;
                                 }
                                 lexeme.push(next_char);
                                 chars.next();
                             }
+                            lexeme = "\'".to_string() + lexeme.as_str() + "\'";
                             Literal(lexeme)
                         }
                         _ => Unknown(c.to_string()), // Default case for unknown characters

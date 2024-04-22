@@ -66,6 +66,9 @@ pub fn codify_token(token: &Token) -> Option<i32>{
             if let Ok(char_value) = str_token.parse::<char>() {
                 return Some(8);
             }
+            if str_token.starts_with("\'") && str_token.ends_with("\'") {
+                return Some(10);
+            }
             Some(9)
         }
     }
