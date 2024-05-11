@@ -18,6 +18,62 @@ pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
                 line += 1;
                 continue;
             }
+            '+' => {
+                if let Some(&'+') = chars.peek() {
+                    chars.next();
+                    tokens_and_line.push(TokenLexical {
+                        token: Operator("++".to_string()),
+                        line,
+                    });
+                } else {
+                    tokens_and_line.push(TokenLexical {
+                        token: Operator(c.to_string()),
+                        line,
+                    });
+                }
+            }
+            '-' => {
+                if let Some(&'-') = chars.peek() {
+                    chars.next();
+                    tokens_and_line.push(TokenLexical {
+                        token: Operator("--".to_string()),
+                        line,
+                    });
+                } else {
+                    tokens_and_line.push(TokenLexical {
+                        token: Operator(c.to_string()),
+                        line,
+                    });
+                }
+            }
+            '>' => {
+                if let Some(&'>') = chars.peek() {
+                    chars.next();
+                    tokens_and_line.push(TokenLexical {
+                        token: Operator(">>".to_string()),
+                        line,
+                    });
+                } else {
+                    tokens_and_line.push(TokenLexical {
+                        token: Operator(c.to_string()),
+                        line,
+                    });
+                }
+            }
+            '<' => {
+                if let Some(&'<') = chars.peek() {
+                    chars.next();
+                    tokens_and_line.push(TokenLexical {
+                        token: Operator("<<".to_string()),
+                        line,
+                    });
+                } else {
+                    tokens_and_line.push(TokenLexical {
+                        token: Operator(c.to_string()),
+                        line,
+                    });
+                }
+            }
             '/' => {
                 if let Some(&'/') = chars.peek() {
                     // Skip single-line comment
@@ -104,7 +160,7 @@ pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
                     let token = match lexeme.as_str() {
                         "void" | "main" | "inicio" | "fim" | "if" | "else" | "while" | "for" | "do" | "cin" | "cout" | "float" | "integer" | "char" | "string" =>
                             Keyword(lexeme),
-                        _ => Variable(lexeme),
+                        _ => Identifier(lexeme),
                     };
                     tokens_and_line.push(TokenLexical { token, line });
                 } else if c.is_numeric() {
@@ -121,7 +177,7 @@ pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
                         token: match lexeme.parse::<i32>() {
                             Ok(_) => IntegerValue(lexeme),
                             Err(_) => match lexeme.parse::<f64>() {
-                                Ok(_) => NumericValue(lexeme.parse().unwrap()),
+                                Ok(_) => NumericValue(lexeme),
                                 Err(_) => Unknown(lexeme),
                             }
                         },

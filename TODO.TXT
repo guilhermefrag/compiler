@@ -1,5 +1,5 @@
-- Arrumar string que vira variavel
-- Tratar erros/regras léxicas
-- ++ e -- funcionar como incremet e decrement
-- >>> tem que ser um >> e outro > mesma logica do ++ e --
-- verificar que comentário de bloco come linha
+- Arrumar string que vira variavel (n entendi essa, consegue fazer?)
+- Tratar erros/regras léxicas (Vamos fazer juntos)
+- ++ e -- funcionar como incremet e decrement (Fiz isso, Wesley testa)
+- >>> tem que ser um >> e outro > mesma logica do ++ e -- (Fiz isso, Wesley testa)
+- verificar que comentário de bloco come linha (Fiz isso, Wesley testa)
