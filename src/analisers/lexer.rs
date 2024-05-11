@@ -1,4 +1,5 @@
 use crate::enums::Token;
+use crate::enums::Token::*;
 
 pub struct TokenLexical {
     pub token: Token,
@@ -6,10 +7,9 @@ pub struct TokenLexical {
 }
 
 pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
-    let mut tokens = Vec::new();
+    let mut tokens_and_line = Vec::new();
     let mut chars = code.chars().peekable();
     let mut line = 1;
-    let mut tokens_and_line = Vec::new();
 
     while let Some(c) = chars.next() {
         match c {
@@ -18,148 +18,43 @@ pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
                 line += 1;
                 continue;
             }
-            '{' => tokens_and_line.push(TokenLexical {
-                token: Token::Parenthesizer(c.to_string()),
-                line,
-            }),
-            '}' => tokens_and_line.push(TokenLexical {
-                token: Token::Parenthesizer(c.to_string()),
-                line,
-            }),
-            ';' => tokens_and_line.push(TokenLexical {
-                token: Token::Terminal(c.to_string()),
-                line,
-            }),
-            '(' => tokens_and_line.push(TokenLexical {
-                token: Token::Parenthesizer(c.to_string()),
-                line,
-            }),
-            ')' => tokens_and_line.push(TokenLexical {
-                token: Token::Parenthesizer(c.to_string()),
-                line,
-            }),
-            ',' => tokens_and_line.push(TokenLexical {
-                token: Token::Comma(c.to_string()),
-                line,
-            }),
-            ':' => tokens_and_line.push(TokenLexical {
-                token: Token::TypeAssignment(c.to_string()),
-                line,
-            }),
-            '+' => tokens_and_line.push(TokenLexical {
-                token: Token::Operator(c.to_string()),
-                line,
-            }),
-            '-' => tokens_and_line.push(TokenLexical {
-                token: Token::Operator(c.to_string()),
-                line,
-            }),
-            '*' => tokens_and_line.push(TokenLexical {
-                token: Token::Operator(c.to_string()),
-                line,
-            }),
-            '/' => {
-                if let Some('/') = chars.peek() {
-                    while let Some(&next_char) = chars.peek() {
-                        if next_char == '\n' {
-                            break;
-                        }
-                        chars.next();
-                    }
-                } else if let Some('*') = chars.peek(){
-                    while let Some(&next_char) = chars.peek() {
-                        if next_char == '*' {
-                            chars.next();
-                            if let Some(&next_char) = chars.peek() {
-                                if next_char == '/' {
-                                    chars.next();
-                                    break;
+            '{' | '}' | ';' | '(' | ')' | ',' | ':' | '+' | '-' | '*' | '/' | '>' | '<' | '=' | '!' | '\'' => {
+                tokens_and_line.push(TokenLexical {
+                    token: match c {
+                        '{' | '}' | '(' | ')' => Parenthesizer(c.to_string()),
+                        ';' => Terminal(c.to_string()),
+                        ',' => Comma(c.to_string()),
+                        ':' => TypeAssignment(c.to_string()),
+                        '+' | '-' | '*' | '/' => Operator(c.to_string()),
+                        '>' | '<' | '=' | '!' => {
+                            if let Some('=') = chars.peek() {
+                                chars.next(); // Consume the next character
+                                match (c, '=') {
+                                    ('>', '=') => Operator(">=".to_string()),
+                                    ('<', '=') => Operator("<=".to_string()),
+                                    ('=', '=') => Operator("==".to_string()),
+                                    ('!', '=') => Operator("!=".to_string()),
+                                    _ => Unknown(c.to_string()),
                                 }
+                            } else {
+                                Operator(c.to_string())
                             }
                         }
-                        chars.next();
-                    }
-                } else {
-                    tokens_and_line.push(TokenLexical {
-                        token: Token::Operator(c.to_string()),
-                        line,
-                    });
-                } 
-            }
-            '>' => {
-                if let Some('=') = chars.peek() {
-                    chars.next(); // Consume the next character
-                    tokens_and_line.push(TokenLexical {
-                        token: Token::Operator(">=".to_string()),
-                        line,
-                    });
-                } else {
-                    tokens.push(Token::Operator(c.to_string()));
-                    tokens_and_line.push(TokenLexical {
-                        token: Token::Operator(c.to_string()),
-                        line,
-                    });
-                }
-            }
-            '<' => {
-                if let Some('=') = chars.peek() {
-                    chars.next(); // Consume the next character
-                    tokens_and_line.push(TokenLexical {
-                        token: Token::Operator("<=".to_string()),
-                        line,
-                    });
-                } else {
-                    tokens.push(Token::Operator(c.to_string()));
-                    tokens_and_line.push(TokenLexical {
-                        token: Token::Operator(c.to_string()),
-                        line,
-                    });
-                }
-            }
-            '=' => {
-                if let Some('=') = chars.peek() {
-                    chars.next(); // Consume the next character
-                    tokens.push(Token::Operator("==".to_string()));
-                    tokens_and_line.push(TokenLexical {
-                        token: Token::Operator("==".to_string()),
-                        line,
-                    });
-                } else {
-                    tokens.push(Token::Operator(c.to_string()));
-                    tokens_and_line.push(TokenLexical {
-                        token: Token::Operator(c.to_string()),
-                        line,
-                    });
-                }
-            }
-            '!' => {
-                if let Some('=') = chars.peek() {
-                    chars.next(); // Consume the next character
-                    tokens.push(Token::Operator("!=".to_string()));
-                    tokens_and_line.push(TokenLexical {
-                        token: Token::Operator("!=".to_string()),
-                        line,
-                    });
-                } else {
-                    tokens.push(Token::Operator(c.to_string()));
-                    tokens_and_line.push(TokenLexical {
-                        token: Token::Operator(c.to_string()),
-                        line,
-                    });
-                }
-            }
-            '"' => {
-                let mut lexeme = String::new();
-                while let Some(&next_char) = chars.peek() {
-                    if next_char == '"' {
-                        chars.next(); // Consume the closing quote
-                        break;
-                    }
-                    lexeme.push(next_char);
-                    chars.next();
-                }
-                tokens_and_line.push(TokenLexical {
-                    token: Token::Literal(lexeme),
+                        '\'' => {
+                            let mut lexeme = String::new();
+                            while let Some(&next_char) = chars.peek() {
+                                if next_char == '\'' {
+                                    chars.next(); // Consume the closing quote
+                                    break;
+                                }
+                                lexeme.push(next_char);
+                                chars.next();
+                            }
+                            lexeme = "\'".to_string() + lexeme.as_str() + "\'";
+                            Literal(lexeme)
+                        }
+                        _ => Unknown(c.to_string()), // Default case for unknown characters
+                    },
                     line,
                 });
             }
@@ -174,72 +69,12 @@ pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
                             break;
                         }
                     }
-                    match lexeme.as_str() {
-                        "void" => tokens_and_line.push(TokenLexical {
-                            token: Token::Keyword(lexeme),
-                            line,
-                        }),
-                        "main" => tokens_and_line.push(TokenLexical {
-                            token: Token::Keyword(lexeme),
-                            line,
-                        }),
-                        "inicio" => tokens_and_line.push(TokenLexical {
-                            token: Token::Keyword(lexeme),
-                            line,
-                        }),
-                        "fim" => tokens_and_line.push(TokenLexical {
-                            token: Token::Keyword(lexeme),
-                            line,
-                        }),
-                        "if" => tokens_and_line.push(TokenLexical {
-                            token: Token::Keyword(lexeme),
-                            line,
-                        }),
-                        "else" => tokens_and_line.push(TokenLexical {
-                            token: Token::Keyword(lexeme),
-                            line,
-                        }),
-                        "while" => tokens_and_line.push(TokenLexical {
-                            token: Token::Keyword(lexeme),
-                            line,
-                        }),
-                        "for" => tokens_and_line.push(TokenLexical {
-                            token: Token::Keyword(lexeme),
-                            line,
-                        }),
-                        "do" => tokens_and_line.push(TokenLexical {
-                            token: Token::Keyword(lexeme),
-                            line,
-                        }),
-                        "cin" => tokens_and_line.push(TokenLexical {
-                            token: Token::Keyword(lexeme),
-                            line,
-                        }),
-                        "cout" => tokens_and_line.push(TokenLexical {
-                            token: Token::Keyword(lexeme),
-                            line,
-                        }),
-                        "float" => tokens_and_line.push(TokenLexical {
-                            token: Token::Keyword(lexeme),
-                            line,
-                        }),
-                        "integer" => tokens_and_line.push(TokenLexical {
-                            token: Token::Keyword(lexeme),
-                            line,
-                        }),
-                        "char" => tokens_and_line.push(TokenLexical {
-                            token: Token::Keyword(lexeme),
-                            line,
-                        }),
-                        "string" => tokens_and_line.push(TokenLexical {
-                            token: Token::Keyword(lexeme),
-                            line,
-                        }),
-                        _ => tokens_and_line.push(TokenLexical {
-                            token: Token::Variable(lexeme),
-                            line,
-                        }),
-                    }
+                    let token = match lexeme.as_str() {
+                        "void" | "main" | "inicio" | "fim" | "if" | "else" | "while" | "for" | "do" | "cin" | "cout" | "float" | "integer" | "char" | "string" =>
+                            Keyword(lexeme),
+                        _ => Variable(lexeme),
+                    };
+                    tokens_and_line.push(TokenLexical { token, line });
                 } else if c.is_numeric() {
                     let mut lexeme = c.to_string();
                     while let Some(&next_char) = chars.peek() {
@@ -251,15 +86,16 @@ pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
                         }
                     }
                     tokens_and_line.push(TokenLexical {
-                        token: Token::Number(lexeme.parse().unwrap()),
+                        token: match lexeme.parse::<i32>() {
+                            Ok(_) => IntegerValue(lexeme),
+                            Err(_) => match lexeme.parse::<f64>() {
+                                Ok(_) => NumericValue(lexeme.parse().unwrap()),
+                                Err(_) => Unknown(lexeme),
+                            }
+                        },
                         line,
                     });
-                }/*  else {
-                    tokens_and_line.push(TokenLexical {
-                        token: Token::Variable(c.to_string()),
-                        line,
-                    });
-                } */
+                }
             }
         }
     }

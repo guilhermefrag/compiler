@@ -4,7 +4,6 @@ mod enums;
 use analisers::codify_token;
 use analisers::lexer_analyzer;
 use enums::token_to_string;
-use enums::token_type_to_string;
 use std::fs;
 
 fn main() {
@@ -20,11 +19,10 @@ fn main() {
                     codified_token.unwrap().to_string()
                 };
                 print!(
-                    "Linha {:?} token {:?} >> {:?} - {:?}\n ",
+                    "Linha {:?} token {:?} >> {:?}\n ",
                     token.line,
                     token_str,
                     token_to_string(&token.token),
-                    token_type_to_string(&token.token)
                 );
             }
         }
