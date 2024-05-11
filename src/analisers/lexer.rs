@@ -18,7 +18,38 @@ pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
                 line += 1;
                 continue;
             }
-            '{' | '}' | ';' | '(' | ')' | ',' | ':' | '+' | '-' | '*' | '/' | '>' | '<' | '=' | '!' | '\'' => {
+            '/' => {
+                if let Some(&'/') = chars.peek() {
+                    // Skip single-line comment
+                    while let Some(next_char) = chars.next() {
+                        if next_char == '\n' {
+                            line += 1;
+                            break;
+                        }
+                    }
+                } else if let Some(&'*') = chars.peek() {
+                    // Skip multi-line comment
+                    chars.next(); // Consume the opening '*'
+                    while let Some(next_char) = chars.next() {
+                        if next_char == '*' {
+                            if let Some(&'/') = chars.peek() {
+                                chars.next(); // Consume the closing '/'
+                                break;
+                            }
+                        } else if next_char == '\n' {
+                            line += 1;
+                        }
+                    }
+                } else {
+                    // It's not a comment, treat '/' as a separate token
+                    tokens_and_line.push(TokenLexical {
+                        token: Operator(c.to_string()),
+                        line,
+                    });
+                }
+            }
+            '{' | '}' | ';' | '(' | ')' | ',' | ':' | '+' | '-' | '*' | '>' | '<' | '=' | '!' | '\'' => {
+                // Process single-character tokens
                 tokens_and_line.push(TokenLexical {
                     token: match c {
                         '{' | '}' | '(' | ')' => Parenthesizer(c.to_string()),
@@ -59,6 +90,7 @@ pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
                 });
             }
             _ => {
+                // Process alphanumeric and numeric tokens
                 if c.is_alphabetic() {
                     let mut lexeme = c.to_string();
                     while let Some(&next_char) = chars.peek() {
