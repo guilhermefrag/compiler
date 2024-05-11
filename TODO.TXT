@@ -1,0 +1,5 @@
+- Arrumar string que vira variavel
+- Tratar erros/regras léxicas
+- ++ e -- funcionar como incremet e decrement
+- >>> tem que ser um >> e outro > mesma logica do ++ e --
+- verificar que comentário de bloco come linha
