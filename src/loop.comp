@@ -1,12 +1,12 @@
 void main{
     inicio
     nomevariavel : float;
-    nomevariavel2, nomevariavel3:char;
+    nomevariavel, nomevariavel:char;
     
-         
-    'AASDASDASD'
-    "123123123"
     'S'
+    '12345678901234567890'
+    "literal"
+    
 
     a+++
     a---
@@ -19,8 +19,8 @@ void main{
     comentario
     */
     // comentario
-    while (a != 1) {
-        nomevariavel = 2;
+    while (a != 2000) {
+        nomevariavel = 2.5;
     }
     fim
 }

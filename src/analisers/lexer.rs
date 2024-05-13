@@ -1,6 +1,8 @@
 use crate::enums::Token;
 use crate::enums::Token::*;
 
+use super::validators::{validate_float, validate_integer};
+
 pub struct TokenLexical {
     pub token: Token,
     pub line: i32,
@@ -104,7 +106,8 @@ pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
                     });
                 }
             }
-            '{' | '}' | ';' | '(' | ')' | ',' | ':' | '+' | '-' | '*' | '>' | '<' | '=' | '!' | '\'' => {
+            '{' | '}' | ';' | '(' | ')' | ',' | ':' | '+' | '-' | '*' | '>' | '<' | '=' | '!'
+            | '\'' => {
                 // Process single-character tokens
                 tokens_and_line.push(TokenLexical {
                     token: match c {
@@ -158,8 +161,10 @@ pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
                         }
                     }
                     let token = match lexeme.as_str() {
-                        "void" | "main" | "inicio" | "fim" | "if" | "else" | "while" | "for" | "do" | "cin" | "cout" | "float" | "integer" | "char" | "string" =>
-                            Keyword(lexeme),
+                        "void" | "main" | "inicio" | "fim" | "if" | "else" | "while" | "for"
+                        | "do" | "cin" | "cout" | "float" | "integer" | "char" | "string" => {
+                            Keyword(lexeme)
+                        }
                         _ => Identifier(lexeme),
                     };
                     tokens_and_line.push(TokenLexical { token, line });
@@ -175,11 +180,17 @@ pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
                     }
                     tokens_and_line.push(TokenLexical {
                         token: match lexeme.parse::<i32>() {
-                            Ok(_) => IntegerValue(lexeme),
-                            Err(_) => match lexeme.parse::<f64>() {
-                                Ok(_) => NumericValue(lexeme),
-                                Err(_) => Unknown(lexeme),
+                            Ok(lexeme_parsed) => {
+                                validate_integer(lexeme_parsed);
+                                IntegerValue(lexeme)
                             }
+                            Err(_) => match lexeme.parse::<f64>() {
+                                Ok(lexeme_parsed) => {
+                                    validate_float(lexeme_parsed);
+                                    NumericValue(lexeme)
+                                }
+                                Err(_) => Unknown(lexeme),
+                            },
                         },
                         line,
                     });

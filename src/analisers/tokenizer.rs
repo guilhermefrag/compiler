@@ -1,7 +1,9 @@
-use crate::enums::Token;
+use crate::analisers::validate_string;
+use crate::analisers::validate_variables;
 use crate::enums::token_to_string;
+use crate::enums::Token;
 
-pub fn codify_token(token: &Token) -> Option<i32>{
+pub fn codify_token(token: &Token) -> Option<i32> {
     let str_token = token_to_string(token);
     match str_token.as_str() {
         "while" => Some(1),
@@ -63,13 +65,20 @@ pub fn codify_token(token: &Token) -> Option<i32>{
             if let Ok(float_value) = str_token.parse::<f64>() {
                 return Some(6);
             }
-            if let Ok(char_value) = str_token.parse::<char>() {
-                return Some(8);
-            }
             if str_token.starts_with("\'") && str_token.ends_with("\'") {
+                if str_token.len() == 3 {
+                    return Some(8);
+                }
+                validate_string(&str_token[1..str_token.len() - 1]);
                 return Some(10);
             }
-            Some(9)
+            if str_token.starts_with("\"") && str_token.ends_with("\"") {
+                return Some(12);
+            }
+            {
+                validate_variables(&str_token);
+                Some(9)
+            }
         }
     }
 }
