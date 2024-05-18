@@ -59,21 +59,20 @@ pub fn codify_token(token: &Token) -> Option<i32> {
         "\n" => None,
         "\t" => None,
         _ => {
+            if let Token::CharValue(_) = token {
+                return Some(8);
+            }
+            if let Token::StringValue(_) = token {
+                return Some(10);
+            }
+            if let Token::Literal(_) = token {
+                return Some(12);
+            }
             if let Ok(int_value) = str_token.parse::<i32>() {
                 return Some(5);
             }
             if let Ok(float_value) = str_token.parse::<f64>() {
                 return Some(6);
-            }
-            if str_token.starts_with("\'") && str_token.ends_with("\'") {
-                if str_token.len() == 3 {
-                    return Some(8);
-                }
-                validate_string(&str_token[1..str_token.len() - 1]);
-                return Some(10);
-            }
-            if str_token.starts_with("\"") && str_token.ends_with("\"") {
-                return Some(12);
             }
             {
                 validate_variables(&str_token);

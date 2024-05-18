@@ -5,7 +5,9 @@ void main{
     
     'S'
     '12345678901234567890'
-    "literal"
+    "TESTEAASD"
+
+    12.5
     
 
     a+++

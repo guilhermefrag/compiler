@@ -1,7 +1,10 @@
 use crate::enums::Token;
 use crate::enums::Token::*;
 
-use super::validators::{validate_float, validate_integer};
+use super::{
+    validate_string,
+    validators::{validate_float, validate_integer},
+};
 
 pub struct TokenLexical {
     pub token: Token,
@@ -107,7 +110,7 @@ pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
                 }
             }
             '{' | '}' | ';' | '(' | ')' | ',' | ':' | '+' | '-' | '*' | '>' | '<' | '=' | '!'
-            | '\'' => {
+            | '\'' | '\"' => {
                 // Process single-character tokens
                 tokens_and_line.push(TokenLexical {
                     token: match c {
@@ -132,15 +135,49 @@ pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
                         }
                         '\'' => {
                             let mut lexeme = String::new();
-                            while let Some(&next_char) = chars.peek() {
-                                if next_char == '\'' {
+                            while let Some(&peek_char) = chars.peek() {
+                                if peek_char == '\'' {
                                     chars.next(); // Consume the closing quote
                                     break;
                                 }
-                                lexeme.push(next_char);
-                                chars.next();
+                                lexeme.push(peek_char);
+
+                                let next_char = chars.next();
+
+                                if next_char == None
+                                    || next_char == Some('\n')
+                                    || next_char == Some('\r')
+                                {
+                                    panic!("Erro léxico: caractere não fechado");
+                                }
                             }
-                            lexeme = "\'".to_string() + lexeme.as_str() + "\'";
+
+                            match lexeme.len() {
+                                1 => CharValue(lexeme),
+                                _ => {
+                                    validate_string(lexeme.as_str());
+                                    StringValue(lexeme)
+                                }
+                            }
+                        }
+                        '\"' => {
+                            let mut lexeme = String::new();
+                            while let Some(&peek_char) = chars.peek() {
+                                if peek_char == '\"' {
+                                    chars.next(); // Consume the closing quote
+                                    break;
+                                }
+                                lexeme.push(peek_char);
+
+                                let next_char = chars.next();
+
+                                if next_char == None
+                                    || next_char == Some('\n')
+                                    || next_char == Some('\r')
+                                {
+                                    panic!("Erro léxico: literal não fechado");
+                                }
+                            }
                             Literal(lexeme)
                         }
                         _ => Unknown(c.to_string()), // Default case for unknown characters
