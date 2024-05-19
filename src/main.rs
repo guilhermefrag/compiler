@@ -1,5 +1,6 @@
 mod analisers;
 mod enums;
+mod productions;
 
 use analisers::codify_token;
 use analisers::lexer_analyzer;

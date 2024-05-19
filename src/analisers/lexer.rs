@@ -18,7 +18,7 @@ pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
 
     while let Some(c) = chars.next() {
         match c {
-            ' ' | '\t' => continue, // Skip whitespace
+            ' ' | '\t' => continue,
             '\n' => {
                 line += 1;
                 continue;
@@ -81,7 +81,6 @@ pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
             }
             '/' => {
                 if let Some(&'/') = chars.peek() {
-                    // Skip single-line comment
                     while let Some(next_char) = chars.next() {
                         if next_char == '\n' {
                             line += 1;
@@ -89,12 +88,11 @@ pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
                         }
                     }
                 } else if let Some(&'*') = chars.peek() {
-                    // Skip multi-line comment
-                    chars.next(); // Consume the opening '*'
+                    chars.next();
                     while let Some(next_char) = chars.next() {
                         if next_char == '*' {
                             if let Some(&'/') = chars.peek() {
-                                chars.next(); // Consume the closing '/'
+                                chars.next();
                                 break;
                             }
                         } else if next_char == '\n' {
@@ -102,7 +100,6 @@ pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
                         }
                     }
                 } else {
-                    // It's not a comment, treat '/' as a separate token
                     tokens_and_line.push(TokenLexical {
                         token: Operator(c.to_string()),
                         line,
@@ -111,7 +108,6 @@ pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
             }
             '{' | '}' | ';' | '(' | ')' | ',' | ':' | '+' | '-' | '*' | '>' | '<' | '=' | '!'
             | '\'' | '\"' => {
-                // Process single-character tokens
                 tokens_and_line.push(TokenLexical {
                     token: match c {
                         '{' | '}' | '(' | ')' => Parenthesizer(c.to_string()),
@@ -137,7 +133,7 @@ pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
                             let mut lexeme = String::new();
                             while let Some(&peek_char) = chars.peek() {
                                 if peek_char == '\'' {
-                                    chars.next(); // Consume the closing quote
+                                    chars.next();
                                     break;
                                 }
                                 lexeme.push(peek_char);
@@ -164,7 +160,7 @@ pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
                             let mut lexeme = String::new();
                             while let Some(&peek_char) = chars.peek() {
                                 if peek_char == '\"' {
-                                    chars.next(); // Consume the closing quote
+                                    chars.next();
                                     break;
                                 }
                                 lexeme.push(peek_char);
@@ -180,13 +176,12 @@ pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
                             }
                             Literal(lexeme)
                         }
-                        _ => Unknown(c.to_string()), // Default case for unknown characters
+                        _ => Unknown(c.to_string()),
                     },
                     line,
                 });
             }
             _ => {
-                // Process alphanumeric and numeric tokens
                 if c.is_alphabetic() {
                     let mut lexeme = c.to_string();
                     while let Some(&next_char) = chars.peek() {
