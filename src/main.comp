@@ -1,9 +1,11 @@
-void main {
-    joao: string;
-
+//Inicio codigo
+void main{
+   i: integer;
     inicio;
+//Recebe valores
 
-    while
-
-    fim
+    for (i = 0; i < 10; ++2){
+        cout<<"adas";
+    }
+fim
 }

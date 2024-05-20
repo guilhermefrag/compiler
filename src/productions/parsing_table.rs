@@ -1,143 +1,676 @@
-pub type ParsingTable = [[Option<usize>; 100]; 100];
+use std::string::ParseError;
+#[derive(Clone, Debug)]
+pub struct ParseTable {
+    pub non_terminal: i32,
+    pub terminal: i32,
+    pub production: i32,
+}
+
+pub type ParsingTable = Vec<ParseTable>;
+
+pub fn find(parsing_table: ParsingTable, non_terminal: i32, terminal: i32) -> Option<ParseTable> {
+    for parse_table in parsing_table {
+        if parse_table.non_terminal == non_terminal && parse_table.terminal == terminal {
+            return Some(parse_table);
+        }
+    }
+
+    None
+}
 
 pub fn get_parsing_table() -> ParsingTable {
-    let mut parsing_table: ParsingTable = [[None; 100]; 100];
-    /* 
-    Tabela de não terminal é linha e terminal é coluna
-    
-    parsing_table[não terminais][terminal] = produção
-    para pegar a produção certa tem que dar o valor do Some(x) - 1
-    
-    */
-    parsing_table[49][2] = Some(1);
-    parsing_table[50][2] = Some(3);
-    parsing_table[50][7] = Some(2);
-    parsing_table[50][13] = Some(3);
-    parsing_table[50][14] = Some(3);
-    parsing_table[50][18] = Some(3);
-    parsing_table[50][3] = Some(3);
-    parsing_table[50][24] = Some(3);
-    parsing_table[51][2] = Some(13);
-    parsing_table[51][13] = Some(13);
-    parsing_table[51][18] = Some(13);
-    parsing_table[51][3] = Some(13);
-    parsing_table[51][24] = Some(13);
-    parsing_table[51][14] = Some(14);
-    parsing_table[52][14] = Some(31);
-    parsing_table[53][41] = Some(5);
-    parsing_table[53][39] = Some(4);
-    parsing_table[54][13] = Some(6);
-    parsing_table[54][18] = Some(7);
-    parsing_table[54][3] = Some(8);
-    parsing_table[54][24] = Some(9);
-    parsing_table[55][2] = Some(11);
-    parsing_table[55][7] = Some(10);
-    parsing_table[55][13] = Some(11);
-    parsing_table[55][18] = Some(11);
-    parsing_table[55][3] = Some(11);
-    parsing_table[55][24] = Some(11);
-    parsing_table[55][14] = Some(11);
-    parsing_table[57][7] = Some(12);
-    parsing_table[58][2] = Some(16);
-    parsing_table[58][13] = Some(15);
-    parsing_table[58][18] = Some(18);
-    parsing_table[58][3] = Some(19);
-    parsing_table[58][24] = Some(17);
-    parsing_table[59][44] = Some(27);
-    parsing_table[59][39] = Some(26);
-    parsing_table[60][7] = Some(22);
-    parsing_table[60][5] = Some(20);
-    parsing_table[60][6] = Some(21);
-    parsing_table[60][8] = Some(23);
-    parsing_table[60][10] = Some(24);
-    parsing_table[60][4] = Some(25);
-    parsing_table[61][13] = Some(28);
-    parsing_table[61][18] = Some(28);
-    parsing_table[61][3] = Some(28);
-    parsing_table[61][24] = Some(28);
-    parsing_table[62][38] = Some(29);
-    parsing_table[62][4] = Some(30);
-    parsing_table[63][7] = Some(34);
-    parsing_table[63][8] = Some(36);
-    parsing_table[63][10] = Some(35);
-    parsing_table[63][38] = Some(37);
-    parsing_table[63][25] = Some(38);
-    parsing_table[63][15] = Some(39);
-    parsing_table[63][1] = Some(40);
-    parsing_table[63][17] = Some(41);
-    parsing_table[63][21] = Some(42);
-    parsing_table[63][23] = Some(43);
-    parsing_table[63][22] = Some(44);
-    parsing_table[64][19] = Some(32);
-    parsing_table[64][7] = Some(33);
-    parsing_table[64][8] = Some(33);
-    parsing_table[64][10] = Some(33);
-    parsing_table[64][25] = Some(33);
-    parsing_table[64][15] = Some(33);
-    parsing_table[64][1] = Some(33);
-    parsing_table[64][17] = Some(33);
-    parsing_table[64][21] = Some(33);
-    parsing_table[64][23] = Some(33);
-    parsing_table[64][22] = Some(33);
-    parsing_table[64][36] = Some(32);
-    parsing_table[65][7] = Some(73);
-    parsing_table[65][5] = Some(73);
-    parsing_table[65][6] = Some(73);
-    parsing_table[65][8] = Some(73);
-    parsing_table[65][10] = Some(73);
-    parsing_table[65][44] = Some(73);
-    parsing_table[65][25] = Some(74);
-    parsing_table[66][44] = Some(46);
-    parsing_table[66][38] = Some(45);
-    parsing_table[66][43] = Some(45);
-    parsing_table[67][7] = Some(53);
-    parsing_table[67][5] = Some(49);
-    parsing_table[67][6] = Some(51);
-    parsing_table[67][8] = Some(52);
-    parsing_table[67][10] = Some(50);
-    parsing_table[68][41] = Some(48);
-    parsing_table[68][43] = Some(47);
-    parsing_table[69][29] = Some(56);
-    parsing_table[69][46] = Some(57);
-    parsing_table[69][28] = Some(58);
-    parsing_table[69][27] = Some(59);
-    parsing_table[69][33] = Some(60);
-    parsing_table[69][31] = Some(61);
-    parsing_table[70][38] = Some(55);
-    parsing_table[70][20] = Some(54);
-    parsing_table[71][7] = Some(66);
-    parsing_table[71][5] = Some(62);
-    parsing_table[71][6] = Some(63);
-    parsing_table[71][8] = Some(65);
-    parsing_table[71][10] = Some(64);
-    parsing_table[72][34] = Some(67);
-    parsing_table[72][47] = Some(68);
-    parsing_table[73][38] = Some(69);
-    parsing_table[73][32] = Some(70);
-    parsing_table[74][41] = Some(72);
-    parsing_table[74][32] = Some(71);
-    parsing_table[74][38] = Some(71);
-    parsing_table[77][7] = Some(78);
-    parsing_table[77][5] = Some(78);
-    parsing_table[77][6] = Some(78);
-    parsing_table[77][8] = Some(78);
-    parsing_table[77][10] = Some(78);
-    parsing_table[77][44] = Some(78);
-    parsing_table[78][38] = Some(77);
-    parsing_table[78][35] = Some(77);
-    parsing_table[78][48] = Some(77);
-    parsing_table[78][43] = Some(77);
-    parsing_table[79][7] = Some(84);
-    parsing_table[79][5] = Some(82);
-    parsing_table[79][6] = Some(83);
-    parsing_table[79][8] = Some(86);
-    parsing_table[79][10] = Some(85);
-    parsing_table[79][44] = Some(87);
-    parsing_table[80][35] = Some(79);
-    parsing_table[80][48] = Some(79);
-    parsing_table[80][42] = Some(80);
-    parsing_table[80][40] = Some(81);
-    parsing_table[80][43] = Some(79);
+    let mut parsing_table: ParsingTable = Vec::new();
+
+    parsing_table.push(ParseTable {
+        non_terminal: 49,
+        terminal: 2,
+        production: 1,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 50,
+        terminal: 2,
+        production: 3,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 50,
+        terminal: 9,
+        production: 2,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 50,
+        terminal: 13,
+        production: 3,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 50,
+        terminal: 14,
+        production: 3,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 50,
+        terminal: 18,
+        production: 3,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 50,
+        terminal: 3,
+        production: 3,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 50,
+        terminal: 24,
+        production: 3,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 51,
+        terminal: 2,
+        production: 13,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 51,
+        terminal: 13,
+        production: 13,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 51,
+        terminal: 18,
+        production: 13,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 51,
+        terminal: 3,
+        production: 13,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 51,
+        terminal: 24,
+        production: 13,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 51,
+        terminal: 14,
+        production: 14,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 52,
+        terminal: 14,
+        production: 31,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 53,
+        terminal: 41,
+        production: 5,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 53,
+        terminal: 39,
+        production: 4,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 54,
+        terminal: 13,
+        production: 6,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 54,
+        terminal: 18,
+        production: 7,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 54,
+        terminal: 3,
+        production: 8,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 54,
+        terminal: 24,
+        production: 9,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 55,
+        terminal: 2,
+        production: 11,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 55,
+        terminal: 9,
+        production: 10,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 55,
+        terminal: 13,
+        production: 11,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 55,
+        terminal: 18,
+        production: 11,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 55,
+        terminal: 3,
+        production: 11,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 55,
+        terminal: 24,
+        production: 11,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 55,
+        terminal: 14,
+        production: 11,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 57,
+        terminal: 9,
+        production: 12,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 58,
+        terminal: 2,
+        production: 16,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 58,
+        terminal: 13,
+        production: 15,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 58,
+        terminal: 18,
+        production: 18,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 58,
+        terminal: 3,
+        production: 19,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 58,
+        terminal: 24,
+        production: 17,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 59,
+        terminal: 44,
+        production: 27,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 59,
+        terminal: 39,
+        production: 26,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 60,
+        terminal: 9,
+        production: 22,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 60,
+        terminal: 5,
+        production: 20,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 60,
+        terminal: 6,
+        production: 21,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 60,
+        terminal: 8,
+        production: 23,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 60,
+        terminal: 10,
+        production: 24,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 60,
+        terminal: 4,
+        production: 25,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 61,
+        terminal: 13,
+        production: 28,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 61,
+        terminal: 18,
+        production: 28,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 61,
+        terminal: 3,
+        production: 28,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 61,
+        terminal: 24,
+        production: 28,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 62,
+        terminal: 38,
+        production: 29,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 62,
+        terminal: 4,
+        production: 30,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 63,
+        terminal: 9,
+        production: 34,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 63,
+        terminal: 8,
+        production: 36,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 63,
+        terminal: 10,
+        production: 35,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 63,
+        terminal: 38,
+        production: 37,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 63,
+        terminal: 25,
+        production: 38,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 63,
+        terminal: 15,
+        production: 39,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 63,
+        terminal: 1,
+        production: 40,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 63,
+        terminal: 17,
+        production: 41,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 63,
+        terminal: 21,
+        production: 42,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 63,
+        terminal: 23,
+        production: 43,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 63,
+        terminal: 22,
+        production: 44,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 64,
+        terminal: 19,
+        production: 32,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 64,
+        terminal: 9,
+        production: 33,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 64,
+        terminal: 8,
+        production: 33,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 64,
+        terminal: 10,
+        production: 33,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 64,
+        terminal: 25,
+        production: 33,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 64,
+        terminal: 15,
+        production: 33,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 64,
+        terminal: 1,
+        production: 33,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 64,
+        terminal: 17,
+        production: 33,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 64,
+        terminal: 21,
+        production: 33,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 64,
+        terminal: 23,
+        production: 33,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 64,
+        terminal: 22,
+        production: 33,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 64,
+        terminal: 36,
+        production: 32,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 65,
+        terminal: 9,
+        production: 73,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 65,
+        terminal: 5,
+        production: 73,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 65,
+        terminal: 6,
+        production: 73,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 65,
+        terminal: 8,
+        production: 73,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 65,
+        terminal: 10,
+        production: 73,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 65,
+        terminal: 44,
+        production: 73,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 65,
+        terminal: 25,
+        production: 74,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 66,
+        terminal: 44,
+        production: 46,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 66,
+        terminal: 38,
+        production: 45,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 66,
+        terminal: 43,
+        production: 45,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 67,
+        terminal: 9,
+        production: 53,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 67,
+        terminal: 5,
+        production: 49,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 67,
+        terminal: 6,
+        production: 51,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 67,
+        terminal: 8,
+        production: 52,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 67,
+        terminal: 10,
+        production: 50,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 68,
+        terminal: 41,
+        production: 48,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 68,
+        terminal: 43,
+        production: 47,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 69,
+        terminal: 29,
+        production: 56,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 69,
+        terminal: 46,
+        production: 57,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 69,
+        terminal: 28,
+        production: 58,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 69,
+        terminal: 27,
+        production: 59,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 69,
+        terminal: 33,
+        production: 60,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 69,
+        terminal: 31,
+        production: 61,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 70,
+        terminal: 38,
+        production: 55,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 70,
+        terminal: 20,
+        production: 54,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 71,
+        terminal: 9,
+        production: 66,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 71,
+        terminal: 5,
+        production: 62,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 71,
+        terminal: 6,
+        production: 63,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 71,
+        terminal: 8,
+        production: 65,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 71,
+        terminal: 10,
+        production: 64,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 72,
+        terminal: 34,
+        production: 67,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 72,
+        terminal: 47,
+        production: 68,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 73,
+        terminal: 38,
+        production: 69,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 73,
+        terminal: 32,
+        production: 70,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 74,
+        terminal: 41,
+        production: 72,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 74,
+        terminal: 32,
+        production: 71,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 74,
+        terminal: 38,
+        production: 71,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 77,
+        terminal: 9,
+        production: 78,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 77,
+        terminal: 5,
+        production: 78,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 77,
+        terminal: 6,
+        production: 78,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 77,
+        terminal: 8,
+        production: 78,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 77,
+        terminal: 10,
+        production: 78,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 77,
+        terminal: 44,
+        production: 78,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 78,
+        terminal: 38,
+        production: 77,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 78,
+        terminal: 35,
+        production: 77,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 78,
+        terminal: 48,
+        production: 77,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 78,
+        terminal: 43,
+        production: 77,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 79,
+        terminal: 9,
+        production: 84,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 79,
+        terminal: 5,
+        production: 82,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 79,
+        terminal: 6,
+        production: 83,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 79,
+        terminal: 8,
+        production: 86,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 79,
+        terminal: 10,
+        production: 85,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 79,
+        terminal: 44,
+        production: 87,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 80,
+        terminal: 35,
+        production: 79,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 80,
+        terminal: 48,
+        production: 79,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 80,
+        terminal: 42,
+        production: 80,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 80,
+        terminal: 40,
+        production: 81,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 80,
+        terminal: 43,
+        production: 79,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 80,
+        terminal: 38,
+        production: 79,
+    });
 
     parsing_table
 }
