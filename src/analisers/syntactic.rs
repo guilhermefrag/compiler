@@ -1,8 +1,5 @@
-use std::any;
-
-use crate::enums::token_to_string;
 use crate::productions::get_productions;
-use crate::productions::{find, get_parsing_table, Productions};
+use crate::productions::{find, get_parsing_table};
 
 #[derive(Clone, Debug)]
 pub struct TokenSyntactic {

@@ -1,10 +1,8 @@
-//Inicio codigo
 void main{
-   i: integer;
+    i: integer;
     inicio;
-//Recebe valores
 
-    for (i = 0; i < 10; ++2){
+    for (i = 0; i <= 10; ++2){
         cout<<"adas";
     }
 fim

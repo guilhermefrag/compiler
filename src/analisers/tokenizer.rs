@@ -1,4 +1,3 @@
-use crate::analisers::validate_string;
 use crate::analisers::validate_variables;
 use crate::enums::token_to_string;
 use crate::enums::Token;
@@ -68,10 +67,10 @@ pub fn codify_token(token: &Token) -> Option<i32> {
             if let Token::Literal(_) = token {
                 return Some(12);
             }
-            if let Ok(int_value) = str_token.parse::<i32>() {
+            if let Ok(_int_value) = str_token.parse::<i32>() {
                 return Some(5);
             }
-            if let Ok(float_value) = str_token.parse::<f64>() {
+            if let Ok(_float_value) = str_token.parse::<f64>() {
                 return Some(6);
             }
             {

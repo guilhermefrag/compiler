@@ -8,7 +8,7 @@ use enums::token_to_string;
 use std::fs;
 
 fn main() {
-    match fs::read_to_string(r#"src\main.comp"#) {
+    match fs::read_to_string(r#"src/main.comp"#) {
         Ok(content) => {
             let tokens = lexer_analyzer(&content);
 

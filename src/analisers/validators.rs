@@ -23,7 +23,7 @@ pub fn validate_variables(value: &str) {
         panic!("Erro léxico: Variáveis devem ter no máximo 30 caracteres");
     }
 
-    if (Regex::new(r"^[a-zA-Z_]*$").unwrap().is_match(value) == false) {
+    if Regex::new(r"^[a-zA-Z_]*$").unwrap().is_match(value) == false {
         panic!("Erro léxico: Variáveis devem possuir apenas caracteres, e não especiais");
     }
 }

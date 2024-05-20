@@ -58,7 +58,13 @@ pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
                         token: Operator(">>".to_string()),
                         line,
                     });
-                } else {
+                } else if let Some(&'=') = chars.peek() {
+                    chars.next();
+                    tokens_and_line.push(TokenLexical {
+                        token: Operator(">=".to_string()),
+                        line,
+                    });
+                }  else {
                     tokens_and_line.push(TokenLexical {
                         token: Operator(c.to_string()),
                         line,
@@ -70,6 +76,12 @@ pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
                     chars.next();
                     tokens_and_line.push(TokenLexical {
                         token: Operator("<<".to_string()),
+                        line,
+                    });
+                } else if let Some(&'=') = chars.peek() {
+                    chars.next();
+                    tokens_and_line.push(TokenLexical {
+                        token: Operator("<=".to_string()),
                         line,
                     });
                 } else {
@@ -106,7 +118,7 @@ pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
                     });
                 }
             }
-            '{' | '}' | ';' | '(' | ')' | ',' | ':' | '+' | '-' | '*' | '>' | '<' | '=' | '!'
+            '{' | '}' | ';' | '(' | ')' | ',' | ':' | '*' | '=' | '!'
             | '\'' | '\"' => {
                 tokens_and_line.push(TokenLexical {
                     token: match c {
@@ -117,7 +129,7 @@ pub fn lexer_analyzer(code: &str) -> Vec<TokenLexical> {
                         '+' | '-' | '*' | '/' => Operator(c.to_string()),
                         '>' | '<' | '=' | '!' => {
                             if let Some('=') = chars.peek() {
-                                chars.next(); // Consume the next character
+                                chars.next();
                                 match (c, '=') {
                                     ('>', '=') => Operator(">=".to_string()),
                                     ('<', '=') => Operator("<=".to_string()),

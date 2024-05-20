@@ -1,4 +1,3 @@
-use std::string::ParseError;
 #[derive(Clone, Debug)]
 pub struct ParseTable {
     pub non_terminal: i32,
