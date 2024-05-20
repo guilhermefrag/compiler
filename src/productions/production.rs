@@ -10,6 +10,7 @@ pub fn get_productions() -> Productions {
     // production 1 seria a produção 2
     // <DCLVAR> ::= 'nomevariavel' <REPIDENT> ':' <TIPO> ';' <LDVAR>
     //                   7            53       39   54   38    55
+    productions.push(vec![]);
     productions.push(vec![2, 11, 37, 50, 51, 52, 36]);
     productions.push(vec![7, 53, 39, 54, 38, 55]);
     productions.push(vec![16]);

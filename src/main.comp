@@ -1,4 +1,9 @@
-void main{
-    nomevariavel : float;
-    nomevariavel2, nomevariavel3:char;
+void main {
+    joao: string;
+
+    inicio;
+
+    while
+
+    fim
 }
