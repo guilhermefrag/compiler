@@ -1,28 +1,33 @@
 void main{
+    
+    nomevariavelUm: integer;
+    nomevariavelDois, nomevariavelTres : char;
+    nomevariavelQuatro : integer; nomevariavelCinco : string;
+    i: integer;
+    
     inicio
-    nomevariavel : float;
-    nomevariavel, nomevariavel:char;
-    
-    'S'
-    '12345678901234567890'
-    "TESTEAASD"
 
-    12.5
-    
+    if(i >= i){
+        ;
+    }else{
+        ;
+    };
 
-    +++a
-    ---a
-    >>>
+    if(i >= i){
+        ;
+    };
 
-    <<<
+    while(a < b){
+	    ;
+    };
 
-    >=
-    /*
-    comentario
-    */
-    // comentario
-    while (a != 2000) {
-        nomevariavel = 2.5;
-    }
-    fim
+    do{
+        ;
+    }while(i == i);
+
+    for (i = 0; i < 10; ++1){
+        ;
+    };
+
+fim
 }

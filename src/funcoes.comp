@@ -1,0 +1,28 @@
+void main{
+
+    integer funcaoTeste( integer var) {
+        inicio;
+        fim
+        return(1)
+    }
+
+    integer funcaoTesteDoisParametros( integer var; integer varDois) {
+        inicio;
+        fim
+        return(1)
+    }
+
+    integer funcaoTesteSemParametro {
+        inicio;
+        fim
+        return(1)
+    }
+
+    inicio;
+    
+    callfuncao funcaoTeste(1);
+    callfuncao funcaoTesteDoisParametros(1, 1);
+    callfuncao funcaoTesteSemParametro;
+
+    fim
+}

@@ -1,4 +1,4 @@
-use crate::productions::get_productions;
+use crate::productions::{get_productions, GET_CAN_BE_EMPTY};
 use crate::productions::{find, get_parsing_table};
 
 #[derive(Clone, Debug)]
@@ -89,7 +89,6 @@ pub fn syntactic_analyser(tokens_syntactic: Vec<TokenSyntactic>) {
                         parsed_top_expansion,
                         top_input_arr.parse::<i32>().unwrap(),
                     );
-
                     if !node.is_none() {
                         expansions_arr.remove(0);
 
@@ -103,6 +102,12 @@ pub fn syntactic_analyser(tokens_syntactic: Vec<TokenSyntactic>) {
                         top_expansion_arr = expansions_arr[0].clone();
 
                         continue;
+
+                    } else if GET_CAN_BE_EMPTY(parsed_top_expansion) {
+                        expansions_arr.remove(0);
+                        top_expansion_arr = expansions_arr[0].clone();
+                        continue;
+                        
                     } else {
                         panic!(
                             "Erro na entrada {:?} na linha {:?} com o token {:?} - {:?}",

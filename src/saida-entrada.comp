@@ -1,0 +1,11 @@
+void main{
+    
+    e : string;
+
+    inicio;
+    
+    cout << "printando";
+    cin >> e;
+
+    fim
+}

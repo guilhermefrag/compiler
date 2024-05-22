@@ -1,0 +1,30 @@
+void main{
+
+    a : float;
+    b, c : char;
+    d : integer; e : string;
+
+    inicio;
+    
+    // erro float maior que 2000
+    // a = 2001.0;
+
+    // erro float separado com virgula (ainda n funciona)
+    // a = 2000,0;
+
+    // erro caracter não fechado
+    // b = 'b;
+
+    // erro char, string dentro de aspas duplas ou literais dentro de aspas simples (ainda n funciona)
+    // c = "c";
+    // e = "teste";
+    // 'literal em aspas simples'
+
+    // erro inteiro maior que 2000
+    // d = 2001;
+
+    // erro variavel string não pode ter mais de 30 caracteres
+    // e = 'testetestetestetestetestetesteteste';
+
+    fim
+}

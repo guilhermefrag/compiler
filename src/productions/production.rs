@@ -11,12 +11,6 @@ pub fn get_productions() -> Productions {
     // <DCLVAR> ::= 'nomedavariavel' <REPIDENT> ':' <TIPO> ';' <LDVAR>
     //                   9            53       39   54   38    55
     
-    // <DCLFUNC> ::= <TIPO_RETORNO> 'nomedavariavel' <DEFPAR> '{' <DCLVAR> <DCLFUNC> <CORPO> 'return''(' <VALORRETORNO> ')' '}' <DCLFUNC>
-    //                    58                9           59     37    50      51        52        4   44       60         43  36   51
-
-    // <COMANDO> ::= 'for' '(' 'nomedavariavel' '=' <CONTCOMPARACAO> ';' 'nomedavariavel' <COMPARACAO> ';'<INCREMENTO> ')' '{' <COMANDO> ';' <REPCOMANDO> '}'
-    //                 17   44     9             30      71           38       9              69       38     72       43  37    63       38    64        36
-
     productions.push(vec![2, 11, 37, 50, 51, 52, 36]); //1
     productions.push(vec![9, 53, 39, 54, 38, 55]); //2
     productions.push(vec![16]); //3
@@ -91,8 +85,8 @@ pub fn get_productions() -> Productions {
     productions.push(vec![41, 9, 74]); //72
     productions.push(vec![77, 78]); //73
     productions.push(vec![25, 9, 66]); //74
-    productions.push(vec![35, 77, 76]); //75
-    productions.push(vec![48, 77, 76]); //76
+    productions.push(vec![35, 77, 78]); //75
+    productions.push(vec![48, 77, 78]); //76
     productions.push(vec![16]); //77
     productions.push(vec![79, 80]); //78
     productions.push(vec![16]); //79

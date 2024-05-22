@@ -1,0 +1,16 @@
+void main{
+
+    a : float;
+    b, c : char;
+    d : integer; e : string;
+
+    inicio;
+    
+    a = 20.0;
+    b = 'b';
+    c = 'c';
+    d = 21;
+    e = 'teste';
+
+    fim
+}
