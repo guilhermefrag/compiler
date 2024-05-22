@@ -19,7 +19,7 @@ pub fn find(parsing_table: ParsingTable, non_terminal: i32, terminal: i32) -> Op
 
 pub fn get_parsing_table() -> ParsingTable {
     let mut parsing_table: ParsingTable = Vec::new();
-
+    
     parsing_table.push(ParseTable {
         non_terminal: 49,
         terminal: 2,
@@ -28,6 +28,11 @@ pub fn get_parsing_table() -> ParsingTable {
     parsing_table.push(ParseTable {
         non_terminal: 50,
         terminal: 2,
+        production: 3,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 50,
+        terminal: 3,
         production: 3,
     });
     parsing_table.push(ParseTable {
@@ -52,11 +57,6 @@ pub fn get_parsing_table() -> ParsingTable {
     });
     parsing_table.push(ParseTable {
         non_terminal: 50,
-        terminal: 3,
-        production: 3,
-    });
-    parsing_table.push(ParseTable {
-        non_terminal: 50,
         terminal: 24,
         production: 3,
     });
@@ -67,22 +67,12 @@ pub fn get_parsing_table() -> ParsingTable {
     });
     parsing_table.push(ParseTable {
         non_terminal: 51,
-        terminal: 13,
-        production: 13,
-    });
-    parsing_table.push(ParseTable {
-        non_terminal: 51,
-        terminal: 18,
-        production: 13,
-    });
-    parsing_table.push(ParseTable {
-        non_terminal: 51,
         terminal: 3,
         production: 13,
     });
     parsing_table.push(ParseTable {
         non_terminal: 51,
-        terminal: 24,
+        terminal: 13,
         production: 13,
     });
     parsing_table.push(ParseTable {
@@ -91,9 +81,24 @@ pub fn get_parsing_table() -> ParsingTable {
         production: 14,
     });
     parsing_table.push(ParseTable {
+        non_terminal: 51,
+        terminal: 18,
+        production: 13,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 51,
+        terminal: 24,
+        production: 13,
+    });
+    parsing_table.push(ParseTable {
         non_terminal: 52,
         terminal: 14,
         production: 31,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 53,
+        terminal: 39,
+        production: 4,
     });
     parsing_table.push(ParseTable {
         non_terminal: 53,
@@ -101,9 +106,9 @@ pub fn get_parsing_table() -> ParsingTable {
         production: 5,
     });
     parsing_table.push(ParseTable {
-        non_terminal: 53,
-        terminal: 39,
-        production: 4,
+        non_terminal: 54,
+        terminal: 3,
+        production: 8,
     });
     parsing_table.push(ParseTable {
         non_terminal: 54,
@@ -117,17 +122,17 @@ pub fn get_parsing_table() -> ParsingTable {
     });
     parsing_table.push(ParseTable {
         non_terminal: 54,
-        terminal: 3,
-        production: 8,
-    });
-    parsing_table.push(ParseTable {
-        non_terminal: 54,
         terminal: 24,
         production: 9,
     });
     parsing_table.push(ParseTable {
         non_terminal: 55,
         terminal: 2,
+        production: 11,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 55,
+        terminal: 3,
         production: 11,
     });
     parsing_table.push(ParseTable {
@@ -142,22 +147,17 @@ pub fn get_parsing_table() -> ParsingTable {
     });
     parsing_table.push(ParseTable {
         non_terminal: 55,
+        terminal: 14,
+        production: 11,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 55,
         terminal: 18,
         production: 11,
     });
     parsing_table.push(ParseTable {
         non_terminal: 55,
-        terminal: 3,
-        production: 11,
-    });
-    parsing_table.push(ParseTable {
-        non_terminal: 55,
         terminal: 24,
-        production: 11,
-    });
-    parsing_table.push(ParseTable {
-        non_terminal: 55,
-        terminal: 14,
         production: 11,
     });
     parsing_table.push(ParseTable {
@@ -172,6 +172,11 @@ pub fn get_parsing_table() -> ParsingTable {
     });
     parsing_table.push(ParseTable {
         non_terminal: 58,
+        terminal: 3,
+        production: 19,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 58,
         terminal: 13,
         production: 15,
     });
@@ -182,28 +187,18 @@ pub fn get_parsing_table() -> ParsingTable {
     });
     parsing_table.push(ParseTable {
         non_terminal: 58,
-        terminal: 3,
-        production: 19,
-    });
-    parsing_table.push(ParseTable {
-        non_terminal: 58,
         terminal: 24,
         production: 17,
     });
     parsing_table.push(ParseTable {
         non_terminal: 59,
-        terminal: 44,
-        production: 27,
-    });
-    parsing_table.push(ParseTable {
-        non_terminal: 59,
-        terminal: 39,
+        terminal: 36,
         production: 26,
     });
     parsing_table.push(ParseTable {
-        non_terminal: 60,
-        terminal: 9,
-        production: 22,
+        non_terminal: 59,
+        terminal: 44,
+        production: 27,
     });
     parsing_table.push(ParseTable {
         non_terminal: 60,
@@ -220,6 +215,11 @@ pub fn get_parsing_table() -> ParsingTable {
         terminal: 8,
         production: 23,
     });
+        parsing_table.push(ParseTable {
+        non_terminal: 60,
+        terminal: 9,
+        production: 22,
+    });
     parsing_table.push(ParseTable {
         non_terminal: 60,
         terminal: 10,
@@ -227,8 +227,13 @@ pub fn get_parsing_table() -> ParsingTable {
     });
     parsing_table.push(ParseTable {
         non_terminal: 60,
-        terminal: 4,
+        terminal: 43,
         production: 25,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 61,
+        terminal: 3,
+        production: 28,
     });
     parsing_table.push(ParseTable {
         non_terminal: 61,
@@ -238,11 +243,6 @@ pub fn get_parsing_table() -> ParsingTable {
     parsing_table.push(ParseTable {
         non_terminal: 61,
         terminal: 18,
-        production: 28,
-    });
-    parsing_table.push(ParseTable {
-        non_terminal: 61,
-        terminal: 3,
         production: 28,
     });
     parsing_table.push(ParseTable {
@@ -257,13 +257,13 @@ pub fn get_parsing_table() -> ParsingTable {
     });
     parsing_table.push(ParseTable {
         non_terminal: 62,
-        terminal: 4,
+        terminal: 43,
         production: 30,
     });
     parsing_table.push(ParseTable {
         non_terminal: 63,
-        terminal: 9,
-        production: 34,
+        terminal: 1,
+        production: 40,
     });
     parsing_table.push(ParseTable {
         non_terminal: 63,
@@ -272,28 +272,18 @@ pub fn get_parsing_table() -> ParsingTable {
     });
     parsing_table.push(ParseTable {
         non_terminal: 63,
+        terminal: 9,
+        production: 34,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 63,
         terminal: 10,
         production: 35,
     });
     parsing_table.push(ParseTable {
         non_terminal: 63,
-        terminal: 38,
-        production: 37,
-    });
-    parsing_table.push(ParseTable {
-        non_terminal: 63,
-        terminal: 25,
-        production: 38,
-    });
-    parsing_table.push(ParseTable {
-        non_terminal: 63,
         terminal: 15,
         production: 39,
-    });
-    parsing_table.push(ParseTable {
-        non_terminal: 63,
-        terminal: 1,
-        production: 40,
     });
     parsing_table.push(ParseTable {
         non_terminal: 63,
@@ -307,22 +297,27 @@ pub fn get_parsing_table() -> ParsingTable {
     });
     parsing_table.push(ParseTable {
         non_terminal: 63,
+        terminal: 22,
+        production: 44,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 63,
         terminal: 23,
         production: 43,
     });
     parsing_table.push(ParseTable {
         non_terminal: 63,
-        terminal: 22,
-        production: 44,
+        terminal: 25,
+        production: 38,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 63,
+        terminal: 38,
+        production: 37,
     });
     parsing_table.push(ParseTable {
         non_terminal: 64,
-        terminal: 19,
-        production: 32,
-    });
-    parsing_table.push(ParseTable {
-        non_terminal: 64,
-        terminal: 9,
+        terminal: 1,
         production: 33,
     });
     parsing_table.push(ParseTable {
@@ -332,12 +327,12 @@ pub fn get_parsing_table() -> ParsingTable {
     });
     parsing_table.push(ParseTable {
         non_terminal: 64,
-        terminal: 10,
+        terminal: 9,
         production: 33,
     });
     parsing_table.push(ParseTable {
         non_terminal: 64,
-        terminal: 25,
+        terminal: 10,
         production: 33,
     });
     parsing_table.push(ParseTable {
@@ -347,22 +342,17 @@ pub fn get_parsing_table() -> ParsingTable {
     });
     parsing_table.push(ParseTable {
         non_terminal: 64,
-        terminal: 1,
-        production: 33,
-    });
-    parsing_table.push(ParseTable {
-        non_terminal: 64,
         terminal: 17,
         production: 33,
     });
     parsing_table.push(ParseTable {
         non_terminal: 64,
-        terminal: 21,
-        production: 33,
+        terminal: 19,
+        production: 32,
     });
     parsing_table.push(ParseTable {
         non_terminal: 64,
-        terminal: 23,
+        terminal: 21,
         production: 33,
     });
     parsing_table.push(ParseTable {
@@ -372,13 +362,19 @@ pub fn get_parsing_table() -> ParsingTable {
     });
     parsing_table.push(ParseTable {
         non_terminal: 64,
-        terminal: 36,
-        production: 32,
+        terminal: 23,
+        production: 33,
     });
     parsing_table.push(ParseTable {
-        non_terminal: 65,
-        terminal: 9,
-        production: 73,
+        non_terminal: 64,
+        terminal: 25,
+        production: 33,
+    });
+    
+    parsing_table.push(ParseTable {
+        non_terminal: 64,
+        terminal: 36,
+        production: 32,
     });
     parsing_table.push(ParseTable {
         non_terminal: 65,
@@ -397,12 +393,12 @@ pub fn get_parsing_table() -> ParsingTable {
     });
     parsing_table.push(ParseTable {
         non_terminal: 65,
-        terminal: 10,
+        terminal: 9,
         production: 73,
     });
     parsing_table.push(ParseTable {
         non_terminal: 65,
-        terminal: 44,
+        terminal: 10,
         production: 73,
     });
     parsing_table.push(ParseTable {
@@ -411,9 +407,9 @@ pub fn get_parsing_table() -> ParsingTable {
         production: 74,
     });
     parsing_table.push(ParseTable {
-        non_terminal: 66,
+        non_terminal: 65,
         terminal: 44,
-        production: 46,
+        production: 73,
     });
     parsing_table.push(ParseTable {
         non_terminal: 66,
@@ -426,9 +422,9 @@ pub fn get_parsing_table() -> ParsingTable {
         production: 45,
     });
     parsing_table.push(ParseTable {
-        non_terminal: 67,
-        terminal: 9,
-        production: 53,
+        non_terminal: 66,
+        terminal: 44,
+        production: 46,
     });
     parsing_table.push(ParseTable {
         non_terminal: 67,
@@ -447,6 +443,11 @@ pub fn get_parsing_table() -> ParsingTable {
     });
     parsing_table.push(ParseTable {
         non_terminal: 67,
+        terminal: 9,
+        production: 53,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 67,
         terminal: 10,
         production: 50,
     });
@@ -462,13 +463,8 @@ pub fn get_parsing_table() -> ParsingTable {
     });
     parsing_table.push(ParseTable {
         non_terminal: 69,
-        terminal: 29,
-        production: 56,
-    });
-    parsing_table.push(ParseTable {
-        non_terminal: 69,
-        terminal: 46,
-        production: 57,
+        terminal: 27,
+        production: 59,
     });
     parsing_table.push(ParseTable {
         non_terminal: 69,
@@ -477,8 +473,13 @@ pub fn get_parsing_table() -> ParsingTable {
     });
     parsing_table.push(ParseTable {
         non_terminal: 69,
-        terminal: 27,
-        production: 59,
+        terminal: 29,
+        production: 56,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 69,
+        terminal: 31,
+        production: 61,
     });
     parsing_table.push(ParseTable {
         non_terminal: 69,
@@ -487,13 +488,8 @@ pub fn get_parsing_table() -> ParsingTable {
     });
     parsing_table.push(ParseTable {
         non_terminal: 69,
-        terminal: 31,
-        production: 61,
-    });
-    parsing_table.push(ParseTable {
-        non_terminal: 70,
-        terminal: 38,
-        production: 55,
+        terminal: 46,
+        production: 57,
     });
     parsing_table.push(ParseTable {
         non_terminal: 70,
@@ -501,9 +497,9 @@ pub fn get_parsing_table() -> ParsingTable {
         production: 54,
     });
     parsing_table.push(ParseTable {
-        non_terminal: 71,
-        terminal: 9,
-        production: 66,
+        non_terminal: 70,
+        terminal: 38,
+        production: 55,
     });
     parsing_table.push(ParseTable {
         non_terminal: 71,
@@ -522,6 +518,11 @@ pub fn get_parsing_table() -> ParsingTable {
     });
     parsing_table.push(ParseTable {
         non_terminal: 71,
+        terminal: 9,
+        production: 66,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 71,
         terminal: 10,
         production: 64,
     });
@@ -537,33 +538,28 @@ pub fn get_parsing_table() -> ParsingTable {
     });
     parsing_table.push(ParseTable {
         non_terminal: 73,
+        terminal: 32,
+        production: 70,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 73,
         terminal: 38,
         production: 69,
     });
     parsing_table.push(ParseTable {
-        non_terminal: 73,
+        non_terminal: 74,
         terminal: 32,
-        production: 70,
+        production: 71,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 74,
+        terminal: 38,
+        production: 71,
     });
     parsing_table.push(ParseTable {
         non_terminal: 74,
         terminal: 41,
         production: 72,
-    });
-    parsing_table.push(ParseTable {
-        non_terminal: 74,
-        terminal: 32,
-        production: 71,
-    });
-    parsing_table.push(ParseTable {
-        non_terminal: 74,
-        terminal: 38,
-        production: 71,
-    });
-    parsing_table.push(ParseTable {
-        non_terminal: 77,
-        terminal: 9,
-        production: 78,
     });
     parsing_table.push(ParseTable {
         non_terminal: 77,
@@ -582,6 +578,11 @@ pub fn get_parsing_table() -> ParsingTable {
     });
     parsing_table.push(ParseTable {
         non_terminal: 77,
+        terminal: 9,
+        production: 78,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 77,
         terminal: 10,
         production: 78,
     });
@@ -592,28 +593,18 @@ pub fn get_parsing_table() -> ParsingTable {
     });
     parsing_table.push(ParseTable {
         non_terminal: 78,
-        terminal: 38,
-        production: 77,
-    });
-    parsing_table.push(ParseTable {
-        non_terminal: 78,
         terminal: 35,
         production: 77,
     });
     parsing_table.push(ParseTable {
         non_terminal: 78,
-        terminal: 48,
+        terminal: 38,
         production: 77,
     });
     parsing_table.push(ParseTable {
         non_terminal: 78,
         terminal: 43,
         production: 77,
-    });
-    parsing_table.push(ParseTable {
-        non_terminal: 79,
-        terminal: 9,
-        production: 84,
     });
     parsing_table.push(ParseTable {
         non_terminal: 79,
@@ -632,6 +623,11 @@ pub fn get_parsing_table() -> ParsingTable {
     });
     parsing_table.push(ParseTable {
         non_terminal: 79,
+        terminal: 9,
+        production: 84,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 79,
         terminal: 10,
         production: 85,
     });
@@ -647,13 +643,8 @@ pub fn get_parsing_table() -> ParsingTable {
     });
     parsing_table.push(ParseTable {
         non_terminal: 80,
-        terminal: 48,
+        terminal: 38,
         production: 79,
-    });
-    parsing_table.push(ParseTable {
-        non_terminal: 80,
-        terminal: 42,
-        production: 80,
     });
     parsing_table.push(ParseTable {
         non_terminal: 80,
@@ -662,12 +653,18 @@ pub fn get_parsing_table() -> ParsingTable {
     });
     parsing_table.push(ParseTable {
         non_terminal: 80,
-        terminal: 43,
-        production: 79,
+        terminal: 42,
+        production: 80,
     });
     parsing_table.push(ParseTable {
         non_terminal: 80,
-        terminal: 38,
+        terminal: 43,
+        production: 79,
+    });
+
+    parsing_table.push(ParseTable {
+        non_terminal: 80,
+        terminal: 48,
         production: 79,
     });
 

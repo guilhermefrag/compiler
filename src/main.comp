@@ -1,9 +1,33 @@
 void main{
+    
+    nomevariavelUm: integer;
+    nomevariavelDois, nomevariavelTres : char;
+    nomevariavelQuatro : integer; nomevariavelCinco : string;
     i: integer;
-    inicio;
 
-    for (i = 0; i <= 10; ++2){
-        cout<<"adas";
+    float soma(float a; float b){
+	    return(1 + 1);
     }
+    
+    inicio
+
+    if(i >= i){
+        ;
+    }else{
+        ;
+    };
+
+    while(a < b){
+	    ;
+    };
+
+    do{
+        ;
+    }while(i == i);
+
+    for (i = 0; i < 10; ++1){
+        ;
+    };
+
 fim
 }
