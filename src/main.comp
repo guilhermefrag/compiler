@@ -1,5 +1,12 @@
 void main{
-    
+
+    //comentario de linha
+    /*
+    comentario 
+    de
+    linhas
+    */
+
     a: integer;
     b: integer;
 
