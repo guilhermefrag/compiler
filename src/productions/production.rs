@@ -8,9 +8,15 @@ pub fn get_productions() -> Productions {
     //               2       11   37    50       51       52    36
 
     // production 1 seria a produção 2
-    // <DCLVAR> ::= 'nomevariavel' <REPIDENT> ':' <TIPO> ';' <LDVAR>
-    //                   7            53       39   54   38    55
+    // <DCLVAR> ::= 'nomedavariavel' <REPIDENT> ':' <TIPO> ';' <LDVAR>
+    //                   9            53       39   54   38    55
     
+    // <DCLFUNC> ::= <TIPO_RETORNO> 'nomedavariavel' <DEFPAR> '{' <DCLVAR> <DCLFUNC> <CORPO> 'return''(' <VALORRETORNO> ')' '}' <DCLFUNC>
+    //                    58                9           59     37    50      51        52        4   44       60         43  36   51
+
+    // <COMANDO> ::= 'for' '(' 'nomedavariavel' '=' <CONTCOMPARACAO> ';' 'nomedavariavel' <COMPARACAO> ';'<INCREMENTO> ')' '{' <COMANDO> ';' <REPCOMANDO> '}'
+    //                 17   44     9             30      71           38       9              69       38     72       43  37    63       38    64        36
+
     productions.push(vec![2, 11, 37, 50, 51, 52, 36]); //1
     productions.push(vec![9, 53, 39, 54, 38, 55]); //2
     productions.push(vec![16]); //3
@@ -23,7 +29,7 @@ pub fn get_productions() -> Productions {
     productions.push(vec![57, 39, 54, 38, 55]); //10
     productions.push(vec![16]); //11
     productions.push(vec![9, 53]); //12
-    productions.push(vec![58, 9, 59, 37, 50, 51, 52]); //13
+    productions.push(vec![58, 9, 59, 37, 50, 51, 52, 4, 44, 60, 43, 36, 51]); //13
     productions.push(vec![16]); //14
     productions.push(vec![13]); //15
     productions.push(vec![2]); //16
@@ -32,7 +38,7 @@ pub fn get_productions() -> Productions {
     productions.push(vec![3]); //19
     productions.push(vec![5]); //20
     productions.push(vec![6]); //21
-    productions.push(vec![9]); //2
+    productions.push(vec![9]); //22
     productions.push(vec![8]); //23
     productions.push(vec![10]); //24
     productions.push(vec![16]); //25
@@ -51,7 +57,7 @@ pub fn get_productions() -> Productions {
     productions.push(vec![25, 9, 66]); //38
     productions.push(vec![15, 44, 9, 69, 43, 37, 63, 38, 64, 36, 70]); //39
     productions.push(vec![1, 44, 9, 69, 43, 37, 63, 38, 64, 36]); //40
-    productions.push(vec![17, 44, 9, 30, 71, 38, 9, 69, 38, 72, 43, 37, 69, 63, 38, 64, 36]); //41
+    productions.push(vec![17, 44, 9, 30, 71, 38, 9, 69, 38, 72, 43, 37, 63, 38, 64, 36]); //41
     productions.push(vec![21, 37, 63, 38, 64, 36, 1, 44, 9, 69, 43]); //42
     productions.push(vec![23, 26, 9]); //43
     productions.push(vec![22, 32, 12, 73]); //44

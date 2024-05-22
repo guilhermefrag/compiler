@@ -1,0 +1,259 @@
+    1 - <BLOCO> ::= 'void' 'main' '{' <DCLVAR> <DCLFUNC> <CORPO> '}'
+                      2       11   37    50       51       52    36
+
+    2 - <DCLVAR> ::= 'nomedavariavel' <REPIDENT> ':' <TIPO> ';' <LDVAR>
+                            9            53       39   54   38    55
+    
+    3 - <DCLVAR> ::= î
+                    16
+
+    4 - <REPIDENT> ::= î
+                      16
+
+    5- <REPIDENT> ::= ',' 'nomedavariavel' <REPIDENT>
+                       41       9              53
+
+    6 - <TIPO> ::= 'integer'
+                      13
+
+    7 - <TIPO> ::= 'float'
+                      18
+
+    8 - <TIPO> ::= 'string'
+                      3
+
+    9 - <TIPO> ::= 'char'
+                     24
+
+    10 - <LDVAR> ::= <LID> ':' <TIPO> ';' <LDVAR>
+                      57    39   54    38    55
+
+    11 - <LDVAR> ::= î
+                     16
+
+    12 - <LID> ::= 'nomedavariavel' <REPIDENT>
+                         9             53
+
+    13 - <DCLFUNC> ::= <TIPO_RETORNO> 'nomedavariavel' <DEFPAR> '{' <DCLVAR> <DCLFUNC> <CORPO> 'return''(' <VALORRETORNO> ')' '}' <DCLFUNC>
+                       58                9           59     37    50      51        52        4   44       60         43  36   51
+
+    14 - <DCLFUNC> ::= î
+                      16
+    
+    15 - <TIPO_RETORNO> ::= 'integer'
+                                13
+
+    16 - <TIPO_RETORNO> ::= 'void'
+                              2
+
+    17 - <TIPO_RETORNO> ::= 'char'
+                              24
+
+    18 - <TIPO_RETORNO> ::= 'float'
+                              18
+
+    19 - <TIPO_RETORNO> ::= 'string'
+                               3
+    
+    20 - <VALORRETORNO> ::= 'numerointeiro'
+                                  5
+
+    21 - <VALORRETORNO> ::= 'numerofloat'
+                                6
+
+    22 - <VALORRETORNO> ::= 'nomedavariavel'
+                                  9
+
+    23 - <VALORRETORNO> ::= 'nomedochar'
+                                 8
+
+    24 - <VALORRETORNO> ::= 'nomedastring'
+                                 10
+
+    25 - <VALORRETORNO> ::= î
+                            16
+
+    26 - <DEFPAR> ::= î
+                      16
+
+    27 - <DEFPAR> ::= '(' <PARAM> ')'
+                      44     61    43
+
+    28 - <PARAM> ::= <TIPO> nomedavariavel <LPARAM>
+                      54         9             62
+
+    29 - <LPARAM> ::= ';' <TIPO> nomedavariavel <LPARAM>
+                      38    54       9             62   
+
+    30 - <LPARAM> ::= î
+                      16
+
+    31 - <CORPO> ::= 'inicio' <COMANDO> ';' <REPCOMANDO> 'fim'
+                        14      63       38    64          19
+    32 - <REPCOMANDO> ::= î
+                         16
+
+    33 - <REPCOMANDO> ::= <COMANDO> ';' <REPCOMANDO>
+                            63       38     64
+
+    34 - <COMANDO> ::= 'nomedavariavel' '=' <EXPRESSAO>
+                             9          30     65
+
+    35 - <COMANDO> ::= 'nomedastring' '=' <EXPRESSAO>
+                            10        30     65
+
+    36 - <COMANDO> ::= 'nomedochar' '=' <EXPRESSAO>
+                          8         30     65
+
+    37 - <COMANDO> ::= î
+                      16
+
+    38 - <COMANDO> ::= 'callfuncao' 'nomedavariavel' <PARAMETROS>
+                           25              9             66
+
+    39 - <COMANDO> ::= 'if' '(' 'nomedavariavel' <COMPARACAO> ')' '{' <COMANDO> ';' <REPCOMANDO> '}'<ELSEPARTE>
+                        15   44       9               69      43   37    63     38       64      36     70
+    
+    40 - <COMANDO> ::= 'while' '(' 'nomedavariavel' <COMPARACAO> ')' '{' <COMANDO> ';' <REPCOMANDO> '}'
+                          1     44       9               69      43   37    63     38       64      36
+
+    41 - <COMANDO> ::= 'for' '(' 'nomedavariavel' '=' <CONTCOMPARACAO> ';' 'nomedavariavel' <COMPARACAO> ';'<INCREMENTO> ')' '{' <COMANDO> ';' <REPCOMANDO> '}'
+                         17   44     9             30      71           38       9              69       38     72       43  37    63      38     64        36
+    
+    42 - <COMANDO> ::= 'do' '{' <COMANDO> ';' <REPCOMANDO> '}' 'while' '(' 'nomedavariavel' <COMPARACAO> ')'
+                        21   37    63     38       64      36     1    44        9              69        43
+    
+    43 - <COMANDO> ::= 'cin' '>>' 'nomedavariavel'
+                         23   26         9
+    
+    44 - <COMANDO> ::= 'cout' '<<' 'literal' <SEQCOUT>
+                         22    32     12        73
+
+    45 - <PARAMETROS> ::= 'î'
+                          16
+
+    46 - <PARAMETROS> ::= '(' <TPARAM> <REPPAR> ')'
+                           44   67        68    43
+
+    47 - <REPPAR> ::= 'î'
+                      16
+
+    48 - <REPPAR> ::= ',' <TPARAM> <REPPAR>
+                      41     67       68
+
+    49 - <TPARAM> ::= 'numerointeiro'
+                            5
+
+    50 - <TPARAM> ::= 'nomedastring'
+                            10
+
+    51 - <TPARAM> ::= 'numerofloat'
+                           6
+
+    52 - <TPARAM> ::= 'nomedochar'
+                           8
+
+    53 - <TPARAM> ::= 'nomedavariavel'
+                             9
+
+    54 - <ELSEPARTE> ::= 'else' '{' <COMANDO> ';' <REPCOMANDO> '}'
+                           20   37    63      38      64       36
+
+    55 - <ELSEPARTE> ::= î
+                        16
+
+    56 - <COMPARACAO> ::= '==' <CONTCOMPARACAO>
+                           29         71
+
+    57 - <COMPARACAO> ::= '!=' <CONTCOMPARACAO>
+                          46        71
+
+    58 - <COMPARACAO> ::= '>' <CONTCOMPARACAO>
+                          28         71
+
+    59 - <COMPARACAO> ::= '>=' <CONTCOMPARACAO>
+                           27        71
+
+    60 - <COMPARACAO> ::= '<' <CONTCOMPARACAO>
+                           33        71
+
+    61 - <COMPARACAO> ::= '<=' <CONTCOMPARACAO>
+                           31        71
+
+    62 - <CONTCOMPARACAO> ::= 'numerointeiro'
+                                    5
+
+    63 - <CONTCOMPARACAO> ::= 'numerofloat'
+                                   6
+
+    64 - <CONTCOMPARACAO> ::= 'nomedastring'
+                                   10
+
+    65 - <CONTCOMPARACAO> ::= 'nomedochar'
+                                   8
+
+    66 - <CONTCOMPARACAO> ::= 'nomedavariavel'
+                                     9
+
+    67 - <INCREMENTO> ::= '++' 'numerointeiro'
+                           34         5
+
+    68 - <INCREMENTO> ::= '--' 'numerointeiro'
+                           47         5
+
+    69 - <SEQCOUT> ::= î
+                      16
+
+    70 - <SEQCOUT> ::= '<<' 'nomedavariavel' <SEQUENCIA> <SEQCOUT>
+                        32        9              74         73
+
+    71 - <SEQUENCIA> ::= î
+                        16
+
+    72 - <SEQUENCIA> ::= , 'nomedavariavel' <SEQUENCIA>
+                        41       9             74
+
+    73 - <EXPRESSAO> ::= <TERMO> <REPEXP>
+                           77      78
+
+    74 - <EXPRESSAO> ::= 'callfuncao' 'nomedavariavel' <PARAMETROS>
+                             25              9             66
+
+    75 - <REPEXP> ::= '+' <TERMO> <REPEXP>
+                      35    77      78
+
+    76 - <REPEXP> ::= '-' <TERMO> <REPEXP>
+                      48    77      78
+
+    77 - <REPEXP> ::= î
+                     16
+
+    78 - <TERMO> ::= <FATOR> <REPTERMO>
+                       79       80
+
+    79 - <REPTERMO> ::= î
+                       16
+
+    80 - <REPTERMO> ::= '*' <FATOR> <REPTERMO>
+                        42    79        80
+
+    81 - <REPTERMO> ::= '/' <FATOR> <REPTERMO>
+                        40    79       80
+
+    82 - <FATOR> ::= 'numerointeiro'
+                           5
+
+    83 - <FATOR> ::= 'numerofloat'
+                          6
+
+    84 - <FATOR> ::= 'nomedavariavel'
+                           9
+
+    85 - <FATOR> ::= 'nomedastring'
+                          10
+
+    86 - <FATOR> ::= 'nomedochar'
+                          8
+
+    87 - <FATOR> ::= '(' <EXPRESSAO> ')'
+                     44       65     43
