@@ -594,7 +594,7 @@ pub fn get_parsing_table() -> ParsingTable {
     parsing_table.push(ParseTable {
         non_terminal: 78,
         terminal: 35,
-        production: 77,
+        production: 75,
     });
     parsing_table.push(ParseTable {
         non_terminal: 78,
@@ -605,6 +605,11 @@ pub fn get_parsing_table() -> ParsingTable {
         non_terminal: 78,
         terminal: 43,
         production: 77,
+    });
+    parsing_table.push(ParseTable {
+        non_terminal: 78,
+        terminal: 48,
+        production: 76,
     });
     parsing_table.push(ParseTable {
         non_terminal: 79,
