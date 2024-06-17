@@ -1,6 +1,8 @@
+use std::vec;
+
 use crate::productions::{get_productions, GET_CAN_BE_EMPTY};
 use crate::productions::{find, get_parsing_table};
-
+use crate::analisers::semantic::{add_to_semantic_analyzer, type_checker, SemanticAnalyser };
 #[derive(Clone, Debug)]
 pub struct TokenSyntactic {
     pub line: i32,
@@ -21,6 +23,8 @@ fn get_token_str_by_token(token: i32, tokens_syntactic: Vec<TokenSyntactic>) -> 
 pub fn syntactic_analyser(tokens_syntactic: Vec<TokenSyntactic>) {
     let productions = get_productions();
     let parsing_table = get_parsing_table();
+
+    let mut semantic_analyzer: Vec<SemanticAnalyser> = Vec::new(); 
 
     let mut expansions_arr: Vec<String> = Vec::new();
     let mut input_arr: Vec<String> = Vec::new();
@@ -65,6 +69,20 @@ pub fn syntactic_analyser(tokens_syntactic: Vec<TokenSyntactic>) {
                 let parsed_top_expansion = top_expansion_arr.parse::<i32>().unwrap();
 
                 if parsed_top_expansion <= 48 && parsed_top_expansion >= 1 {
+                    
+                    if parsed_top_expansion == 9 {
+                        let mut i = 0;
+
+                        for token in input_arr.clone() {
+                            if token == "39" {
+                                let variable_type = input_arr[i + 1].clone().parse::<i32>().unwrap();
+                                add_to_semantic_analyzer(&mut semantic_analyzer, str_tokens_arr[element_line as usize].clone(), "variable".to_string(), variable_type, "global".to_string());
+                                break;
+                            }
+                            i += 1;
+                        }
+                    }
+
                     if top_expansion_arr == top_input_arr {
                         expansions_arr.remove(0);
                         input_arr.remove(0);
@@ -124,4 +142,5 @@ pub fn syntactic_analyser(tokens_syntactic: Vec<TokenSyntactic>) {
             }
         }
     }
+    print!("{:?}", semantic_analyzer.clone());
 }
