@@ -52,17 +52,17 @@ pub fn syntactic_analyser(tokens_syntactic: Vec<TokenSyntactic>) {
     let mut top_input_arr = input_arr[0].clone();
 
     while top_expansion_arr != "$" {
-        // println!(
-        //     "Entrada token analisada: {:?} | Token: {:?}/{:?} | Linha: {:?}",
-        //     top_expansion_arr,
-        //     get_token_str_by_token(
-        //         top_input_arr.parse::<i32>().unwrap(),
-        //         tokens_syntactic.clone()
-        //     ),
-        //     top_input_arr,
-        //     lines_arr[element_line as usize]
-        // );
-        // println!("Pilha: {:?}", expansions_arr);
+        println!(
+            "Entrada token analisada: {:?} | Token: {:?}/{:?} | Linha: {:?}",
+            top_expansion_arr,
+            get_token_str_by_token(
+                top_input_arr.parse::<i32>().unwrap(),
+                tokens_syntactic.clone()
+            ),
+            top_input_arr,
+            lines_arr[element_line as usize]
+        );
+        println!("Pilha: {:?}", expansions_arr);
         if top_expansion_arr == "16" {
             expansions_arr.remove(0);
             top_expansion_arr = expansions_arr[0].clone();
@@ -180,5 +180,4 @@ pub fn syntactic_analyser(tokens_syntactic: Vec<TokenSyntactic>) {
             }
         }
     }
-    print!("{:?}", semantic_analyzer.clone());
 }
