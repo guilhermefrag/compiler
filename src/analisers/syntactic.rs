@@ -2,7 +2,9 @@ use std::vec;
 
 use crate::productions::{get_productions, GET_CAN_BE_EMPTY};
 use crate::productions::{find, get_parsing_table};
-use crate::analisers::semantic::{add_to_semantic_analyzer, type_checker, SemanticAnalyser };
+use crate::analisers::semantic::{add_to_semantic_analyzer, type_checker, SemanticAnalyser, variable_existence_checker };
+use crate::dictionaries::TYPES;
+
 #[derive(Clone, Debug)]
 pub struct TokenSyntactic {
     pub line: i32,
@@ -50,17 +52,17 @@ pub fn syntactic_analyser(tokens_syntactic: Vec<TokenSyntactic>) {
     let mut top_input_arr = input_arr[0].clone();
 
     while top_expansion_arr != "$" {
-        println!(
-            "Entrada token analisada: {:?} | Token: {:?}/{:?} | Linha: {:?}",
-            top_expansion_arr,
-            get_token_str_by_token(
-                top_input_arr.parse::<i32>().unwrap(),
-                tokens_syntactic.clone()
-            ),
-            top_input_arr,
-            lines_arr[element_line as usize]
-        );
-        println!("Pilha: {:?}", expansions_arr);
+        // println!(
+        //     "Entrada token analisada: {:?} | Token: {:?}/{:?} | Linha: {:?}",
+        //     top_expansion_arr,
+        //     get_token_str_by_token(
+        //         top_input_arr.parse::<i32>().unwrap(),
+        //         tokens_syntactic.clone()
+        //     ),
+        //     top_input_arr,
+        //     lines_arr[element_line as usize]
+        // );
+        // println!("Pilha: {:?}", expansions_arr);
         if top_expansion_arr == "16" {
             expansions_arr.remove(0);
             top_expansion_arr = expansions_arr[0].clone();
@@ -75,13 +77,49 @@ pub fn syntactic_analyser(tokens_syntactic: Vec<TokenSyntactic>) {
 
                         for token in input_arr.clone() {
                             if token == "39" {
+                                let variable_name = str_tokens_arr[element_line as usize].clone();
                                 let variable_type = input_arr[i + 1].clone().parse::<i32>().unwrap();
-                                add_to_semantic_analyzer(&mut semantic_analyzer, str_tokens_arr[element_line as usize].clone(), "variable".to_string(), variable_type, "global".to_string());
+
+                                let is_variable_existent = variable_existence_checker(
+                                    &variable_name,
+                                    &semantic_analyzer
+                                );
+                                
+                                if is_variable_existent {
+                                    panic!("Erro de variável: A variável {:?} já foi declarada", variable_name);
+                                }
+
+                                if TYPES.contains(&variable_type) {
+                                    add_to_semantic_analyzer(
+                                        &mut semantic_analyzer, 
+                                        str_tokens_arr[element_line as usize].clone(),
+                                        "variable".to_string(),
+                                        variable_type,
+                                        "global".to_string()
+                                    );
+                                    break;
+                                } else {
+                                    panic!("Erro de tipo: O tipo {:?} não é um tipo válido", variable_type);
+                                }
+                            } else if token == "30" {
+                                let variable_name = str_tokens_arr[element_line as usize].clone();
+                                let variable_value = input_arr[i + 1].clone().parse::<i32>().unwrap();
+                                
+                                let is_variable_existent = variable_existence_checker(
+                                    &variable_name,
+                                    &semantic_analyzer
+                                );
+
+                                if !is_variable_existent {
+                                    panic!("Erro de variável: A variável {:?} não foi declarada", variable_name);
+                                }
+                                
+                                type_checker(&variable_name, &variable_value, &semantic_analyzer);
                                 break;
                             }
                             i += 1;
                         }
-                    }
+                    } 
 
                     if top_expansion_arr == top_input_arr {
                         expansions_arr.remove(0);

@@ -1,6 +1,7 @@
 mod analisers;
 mod enums;
 mod productions;
+mod dictionaries;
 
 use analisers::{codify_token, lexer_analyzer, syntactic_analyser, TokenSyntactic};
 
@@ -29,12 +30,12 @@ fn main() {
                     token_str: token_to_string(&token.token),
                 });
 
-                print!(
-                    "Linha {:?} token {:?} >> {:?}\n ",
-                    token.line,
-                    token_str,
-                    token_to_string(&token.token),
-                );
+                // print!(
+                //     "Linha {:?} token {:?} >> {:?}\n ",
+                //     token.line,
+                //     token_str,
+                //     token_to_string(&token.token),
+                // );
             }
 
             syntactic_analyser(token_syntactic.clone());

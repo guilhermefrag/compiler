@@ -1,3 +1,5 @@
+use crate::dictionaries::MATCH_TYPES;
+
 #[derive(Clone, Debug)]
 pub struct SemanticAnalyser {
     pub token: String,
@@ -17,9 +19,25 @@ pub fn add_to_semantic_analyzer(semantic_analyzer_arr: &mut Vec<SemanticAnalyser
 }
 
 
-pub fn type_checker(variable: &str, value: &i32, semantic_analyzer_arr: &Vec<SemanticAnalyser>) -> bool {
-    let mut type_: String = String::new();
-
+pub fn type_checker(variable_name: &str, variable_value: &i32, semantic_analyzer_arr: &Vec<SemanticAnalyser>) -> bool {
+    for semantic_analyzer in semantic_analyzer_arr {
+        if semantic_analyzer.token == variable_name {
+            let expected_type = MATCH_TYPES.get(&semantic_analyzer.type_).unwrap();
+            if expected_type != variable_value {
+                panic!("Erro de tipo: A variável '{}' é do tipo {:?}, mas foi atribuído um valor do tipo {:?}", variable_name, semantic_analyzer.type_, variable_value);
+            }
+        }
+    }
     
     return true;
+}
+
+pub fn variable_existence_checker(variable_name: &str, semantic_analyzer_arr: &Vec<SemanticAnalyser>) -> bool {
+    for semantic_analyzer in semantic_analyzer_arr {
+        if semantic_analyzer.token == variable_name {
+            return true;
+        }
+    }
+
+    return false;
 }
