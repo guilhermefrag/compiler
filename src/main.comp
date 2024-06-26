@@ -1,12 +1,12 @@
 void main{
 
-    a : float;
+    a : integer;
     b, c : char;
     d : integer; e : string;
 
     inicio;
     
-    a = 20.0;
+    a = 12.5;
     b = 'b';
     c = 'c';
     d = 21;

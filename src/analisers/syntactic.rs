@@ -86,7 +86,7 @@ pub fn syntactic_analyser(tokens_syntactic: Vec<TokenSyntactic>) {
                                 );
                                 
                                 if is_variable_existent {
-                                    panic!("Erro de variável: A variável {:?} já foi declarada", variable_name);
+                                    panic!("Erro de variável na linha: {:?} A variável {:?} já foi declarada",   lines_arr[element_line as usize], variable_name);
                                 }
 
                                 if TYPES.contains(&variable_type) {
@@ -99,7 +99,7 @@ pub fn syntactic_analyser(tokens_syntactic: Vec<TokenSyntactic>) {
                                     );
                                     break;
                                 } else {
-                                    panic!("Erro de tipo: O tipo {:?} não é um tipo válido", variable_type);
+                                    panic!("Erro de tipo na linha: {:?} O tipo {:?} não é um tipo válido",  lines_arr[element_line as usize], variable_type);
                                 }
                             } else if token == "30" {
                                 let variable_name = str_tokens_arr[element_line as usize].clone();
@@ -111,10 +111,10 @@ pub fn syntactic_analyser(tokens_syntactic: Vec<TokenSyntactic>) {
                                 );
 
                                 if !is_variable_existent {
-                                    panic!("Erro de variável: A variável {:?} não foi declarada", variable_name);
+                                    panic!("Erro de variável na linha {:?}: A variável {:?} não foi declarada",  lines_arr[element_line as usize], variable_name);
                                 }
                                 
-                                type_checker(&variable_name, &variable_value, &semantic_analyzer);
+                                type_checker(&variable_name, &variable_value, &semantic_analyzer, lines_arr[element_line as usize]);
                                 break;
                             }
                             i += 1;
